@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+        h1 { text-align: center; }
+        input[type='text'] { width: 80%; padding: 10px; border: none; border-radius: 5px; }
+        button { padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .task { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; }
+        .priority { display: inline-block; min-width: 80px; }
+        .completed { text-decoration: line-through; color: gray; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo App</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task" />
+        <button id="addTaskButton">Add Task</button>
+        <div>
+            <button id="filterAll">All</button>
+            <button id="filterActive">Active</button>
+            <button id="filterCompleted">Completed</button>
+            <button id="clearCompleted">Clear Completed</button>
+            <button id="clearAll">Clear All</button>
+        </div>
+        <div id="taskCounter">Tasks Left: 0</div>
+        <div id="todoList"></div>
+    </div>
+    <script>
+        let tasks = [];
+
+        const renderTasks = () => {
+            const todoList = document.getElementById('todoList');
+            todoList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const taskDiv = document.createElement('div');
+                taskDiv.classList.add('task');
+                if (task.completed) taskDiv.classList.add('completed');
+                taskDiv.innerHTML = `
+                    <input type='checkbox' ${task.completed ? 'checked' : ''} onchange='toggleCompletion(${index})'>
+                    <span class='priority'>${task.priority}</span>
+                    ${escapeHTML(task.content)}
+                    <button onclick='removeTask(${index})'>X</button>
+                `;
+                todoList.appendChild(taskDiv);
+            });
+            document.getElementById('taskCounter').innerText = 'Tasks Left: ' + tasks.filter(t => !t.completed).length;
+        };
+
+        const toggleCompletion = (index) => {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            renderTasks();
+        };
+
+        const removeTask = (index) => {
+            tasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+        };
+
+        const addTask = () => {
+            const input = document.getElementById('taskInput');
+            const priority = prompt('Enter priority (high/medium/low):');
+            if (input.value && ['high', 'medium', 'low'].includes(priority)) {
+                tasks.push({ content: input.value, completed: false, priority });
+                input.value = '';
+                saveTasks();
+                renderTasks();
+            }
+        };
+
+        const clearCompleted = () => {
+            tasks = tasks.filter(t => !t.completed);
+            saveTasks();
+            renderTasks();
+        };
+
+        const clearAll = () => {
+            tasks = [];
+            saveTasks();
+            renderTasks();
+        };
+
+        const saveTasks = () => {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        };
+
+        const loadTasks = () => {
+            const savedTasks = localStorage.getItem('tasks');
+            tasks = savedTasks ? JSON.parse(savedTasks) : [];
+            renderTasks();
+        };
+
+        const escapeHTML = (unsafe) => {
+            return unsafe.replace(/&/g, '&amp;')
+                         .replace(/</g, '&lt;')
+                         .replace(/>/g, '&gt;')
+                         .replace(/"/g, '&quot;')
+                         .replace(/'/g, '&#039;');
+        };
+
+        document.getElementById('addTaskButton').addEventListener('click', addTask);
+        document.getElementById('taskInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+        document.getElementById('clearCompleted').addEventListener('click', clearCompleted);
+        document.getElementById('clearAll').addEventListener('click', clearAll);
+        document.getElementById('filterAll').addEventListener('click', () => renderTasks());
+        document.getElementById('filterActive').addEventListener('click', () => {
+            tasks = tasks.filter(t => !t.completed);
+            renderTasks();
+        });
+        document.getElementById('filterCompleted').addEventListener('click', () => {
+            tasks = tasks.filter(t => t.completed);
+            renderTasks();
+        });
+
+        window.onload = loadTasks;
+    </script>
+</body>
+</html>
