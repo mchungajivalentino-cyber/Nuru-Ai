@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            font-family: Arial, sans-serif;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .container {
+            text-align: center;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            background-color: white;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #joke {
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Joke Generator</h1>
+        <select id="category">
+            <option value="General">General</option>
+            <option value="Programming">Programming</option>
+            <option value="Knock-Knock">Knock-Knock</option>
+        </select>
+        <button id="jokeButton">Get Joke</button>
+        <div id="joke"></div>
+        <button id="copyButton">Copy Joke</button>
+    </div>
+    <script>
+        const jokeButton = document.getElementById('jokeButton');
+        const jokeDiv = document.getElementById('joke');
+        const copyButton = document.getElementById('copyButton');
+        const category = document.getElementById('category');
+
+        function fetchJoke() {
+            const categoryValue = category.value;
+            fetch(`https://official-joke-api.appspot.com/jokes/${categoryValue.toLowerCase()}/random`)
+                .then(response => response.json())
+                .then(data => {
+                    jokeDiv.innerText = data.setup ? data.setup + '\n' + data.punchline : 'No joke found!';
+                    storeJoke(data.setup + '\n' + data.punchline);
+                })
+                .catch(error => jokeDiv.innerText = 'Error fetching joke!');
+        }
+
+        function storeJoke(joke) {
+            let jokes = JSON.parse(localStorage.getItem('jokes')) || [];
+            jokes.push(joke);
+            localStorage.setItem('jokes', JSON.stringify(jokes));
+        }
+
+        jokeButton.addEventListener('click', fetchJoke);
+        copyButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(jokeDiv.innerText);
+            alert('Joke copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
