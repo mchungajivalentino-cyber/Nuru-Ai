@@ -3,144 +3,647 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>NURU AI — Mwongozo wa Kiroho</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>NURU AI — Mwongozo wa Kiroho | Spiritual Guidance</title>
+<meta name="description" content="NURU AI — Spiritual guidance platform by Mchungaji Valentino, Diocese of Central Tanganyika. AI-powered pastoral counsel, teachings, and spiritual resources."/>
+<meta property="og:title" content="NURU AI — Mwongozo wa Kiroho"/>
+<meta property="og:description" content="Spiritual guidance, teachings, and pastoral counsel from Mchungaji Valentino, Anglican Diocese of Central Tanganyika."/>
+<meta property="og:type" content="website"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#C8A96E;--gold-light:#E2C990;--charcoal:#1C1A17;--ivory:#FAF7F2;--muted:#7A6E5F;--border:rgba(200,169,110,0.25)}
+:root{
+  --gold:#C8A96E;--gold-light:#E2C990;--gold-dim:rgba(200,169,110,0.12);
+  --charcoal:#1C1A17;--deep:#0F0E0C;--surface:#141210;--surface2:#1A1814;
+  --ivory:#FAF7F2;--muted:#7A6E5F;--border:rgba(200,169,110,0.2);
+  --green:#6BAE8C;--red:#C47A6B;--blue:#6B8EAE;
+}
 html{scroll-behavior:smooth}
-body{font-family:'Jost',sans-serif;background:var(--charcoal);color:var(--ivory);min-height:100vh;overflow-x:hidden;font-weight:300}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;background:rgba(28,26,23,0.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase}
+body{font-family:'Jost',sans-serif;background:var(--charcoal);color:var(--ivory);min-height:100vh;overflow-x:hidden;font-weight:300;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--deep)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(20,18,16,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;text-decoration:none;flex-shrink:0}
 .nav-logo span{color:var(--ivory);font-weight:300}
-.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-center{display:flex;align-items:center;gap:2rem}
+.nav-center a{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;white-space:nowrap}
+.nav-center a:hover{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:0.8rem;flex-shrink:0}
 .lang-toggle{display:flex;border:1px solid var(--border);overflow:hidden}
-.lang-btn{padding:0.35rem 0.9rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border:none;background:transparent;color:var(--muted);transition:all 0.2s}
-.lang-btn.active{background:var(--gold);color:var(--charcoal)}
-.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.4rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.lang-btn{padding:0.3rem 0.75rem;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border:none;background:transparent;color:var(--muted);transition:all 0.2s}
+.lang-btn.active{background:var(--gold);color:var(--charcoal);font-weight:500}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.35rem 1rem;font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;white-space:nowrap}
 .nav-cta:hover{background:var(--gold);color:var(--charcoal)}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 1.5rem 4rem;position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(200,169,110,0.09) 0%,transparent 70%)}
-.hero-line{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:1px;height:70px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0.5}
-.hero-eyebrow{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;animation:fadeUp 0.8s ease both 0.2s;opacity:0}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,8vw,6rem);font-weight:300;line-height:1.05;color:var(--ivory);animation:fadeUp 0.8s ease both 0.35s;opacity:0}
+/* Mobile nav toggle */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-hamburger span{width:22px;height:1.5px;background:var(--muted);transition:all 0.3s;display:block}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(20,18,16,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1.5rem 2.5rem;flex-direction:column;gap:1.2rem;z-index:190}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0.4rem 0;border-bottom:1px solid rgba(200,169,110,0.08)}
+.mobile-menu a:hover{color:var(--gold)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(200,169,110,0.08) 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 20% 20%,rgba(200,169,110,0.03) 0%,transparent 60%)}
+.hero-vline{position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:90px;background:linear-gradient(to bottom,transparent,rgba(200,169,110,0.5),transparent)}
+.hero-eyebrow{font-size:0.66rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem;position:relative;z-index:1;animation:fadeUp 0.7s ease both 0.15s;opacity:0}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,6.5rem);font-weight:300;line-height:1.02;color:var(--ivory);position:relative;z-index:1;animation:fadeUp 0.7s ease both 0.3s;opacity:0}
 .hero-title em{font-style:italic;color:var(--gold)}
-.hero-sub{margin-top:1.5rem;max-width:500px;font-size:0.92rem;font-weight:300;line-height:1.8;color:var(--muted);animation:fadeUp 0.8s ease both 0.5s;opacity:0}
-.hero-actions{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.8s ease both 0.65s;opacity:0}
-.btn-primary{background:var(--gold);color:var(--charcoal);border:none;padding:0.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
-.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
-.btn-secondary{background:transparent;color:var(--ivory);border:1px solid rgba(250,247,242,0.2);padding:0.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.hero-sub{margin-top:1.6rem;max-width:520px;font-size:0.92rem;font-weight:300;line-height:1.85;color:var(--muted);position:relative;z-index:1;animation:fadeUp 0.7s ease both 0.45s;opacity:0}
+.hero-actions{margin-top:2.8rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;animation:fadeUp 0.7s ease both 0.6s;opacity:0}
+.btn-primary{background:var(--gold);color:var(--charcoal);border:none;padding:0.9rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--ivory);border:1px solid rgba(250,247,242,0.2);padding:0.9rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
 .btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── MISSION STRIP ── */
+.mission-strip{padding:3.5rem 2rem;text-align:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(200,169,110,0.025)}
+.mission-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.6rem);font-style:italic;font-weight:300;color:var(--ivory);max-width:720px;margin:0 auto;line-height:1.7}
+.mission-attr{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:1rem;opacity:0.85}
+
+/* ── COMMON ── */
+.section{padding:5.5rem 2rem;max-width:1140px;margin:0 auto}
+.section-dark{padding:5.5rem 2rem;background:var(--surface)}
+.section-dark-inner{max-width:1140px;margin:0 auto}
 .divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
-.section{padding:5rem 1.5rem;max-width:1100px;margin:0 auto}
-.section-label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--ivory);margin-bottom:2.5rem}
-.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--border)}
-.mode-card{background:var(--charcoal);padding:2rem 1.5rem;cursor:pointer;transition:background 0.25s;border-bottom:2px solid transparent}
-.mode-card:hover{background:rgba(200,169,110,0.07);border-bottom-color:var(--gold)}
-.mode-icon{font-size:1.4rem;margin-bottom:0.8rem}
-.mode-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ivory);margin-bottom:0.4rem}
-.mode-desc{font-size:0.76rem;color:var(--muted);line-height:1.65}
-.chat-section{padding:5rem 1.5rem;background:linear-gradient(180deg,var(--charcoal) 0%,#161410 100%)}
-.chat-wrapper{max-width:860px;margin:0 auto;border:1px solid var(--border);display:flex;flex-direction:column}
-.chat-topbar{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.2rem;border-bottom:1px solid var(--border);background:#141210}
+.eyebrow{font-size:0.66rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;display:flex;align-items:center;gap:0.7rem}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold);flex-shrink:0}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:300;color:var(--ivory);line-height:1.1;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--gold)}
+.body-text{font-size:0.9rem;font-weight:300;line-height:1.88;color:var(--muted)}
+
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:3rem}
+.stat{background:var(--charcoal);padding:1.8rem 1.2rem;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--gold);line-height:1}
+.stat-label{font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem;line-height:1.4}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:260px 1fr;gap:4.5rem;align-items:start;margin-top:2.5rem}
+.about-photo-wrap{position:relative;flex-shrink:0}
+.about-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;display:block;border:1px solid var(--border)}
+.about-frame{position:absolute;bottom:-10px;right:-10px;width:100%;height:100%;border:1px solid rgba(200,169,110,0.25);z-index:-1;pointer-events:none}
+.about-badge{display:inline-flex;align-items:center;gap:0.4rem;background:var(--gold-dim);border:1px solid var(--border);padding:0.3rem 0.8rem;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-top:1.2rem;line-height:1.4}
+.about-quote{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;font-weight:300;color:var(--ivory);border-left:2px solid var(--gold);padding-left:1.2rem;margin:1.6rem 0;line-height:1.65}
+.timeline{margin-top:2rem;display:flex;flex-direction:column}
+.tl-item{display:grid;grid-template-columns:64px 1fr;gap:1.2rem;padding:1.1rem 0;border-top:1px solid rgba(200,169,110,0.1)}
+.tl-year{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;color:var(--gold);line-height:1;padding-top:0.15rem}
+.tl-text{font-size:0.82rem;font-weight:300;line-height:1.7;color:var(--muted)}
+.tl-text strong{color:var(--ivory);font-weight:400;display:block;margin-bottom:0.1rem}
+
+/* ── BENEFITS ── */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.2rem;margin-top:2.5rem}
+.benefit{border-top:1px solid var(--border);padding-top:1.4rem}
+.benefit-icon{font-size:1.4rem;margin-bottom:0.7rem;display:block}
+.benefit-title{font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ivory);margin-bottom:0.5rem}
+.benefit-desc{font-size:0.82rem;color:var(--muted);line-height:1.75}
+
+/* ── MODES ── */
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1px;background:var(--border);margin-top:2.5rem}
+.mode-card{background:var(--charcoal);padding:1.8rem 1.4rem;cursor:pointer;transition:background 0.25s;border-bottom:2px solid transparent}
+.mode-card:hover{background:rgba(200,169,110,0.06);border-bottom-color:var(--gold)}
+.mode-icon{font-size:1.3rem;margin-bottom:0.75rem;display:block}
+.mode-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--ivory);margin-bottom:0.4rem}
+.mode-desc{font-size:0.74rem;color:var(--muted);line-height:1.62}
+
+/* ── TEACHINGS ── */
+.teachings-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:2rem}
+.tab-btn{padding:0.65rem 1.4rem;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border:none;background:transparent;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.2s}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-btn:hover:not(.active){color:var(--ivory)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.teachings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border)}
+.teaching-card{background:var(--charcoal);padding:1.8rem;transition:background 0.2s;cursor:pointer;display:flex;flex-direction:column}
+.teaching-card:hover{background:rgba(200,169,110,0.05)}
+.teaching-type{font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem;display:flex;align-items:center;gap:0.5rem;border-top:1px solid rgba(200,169,110,0.3);padding-top:0;padding-top:1px}
+.teaching-card{border-top:2px solid rgba(200,169,110,0.3)}
+.teaching-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--ivory);margin-bottom:0.5rem;line-height:1.35}
+.teaching-excerpt{font-size:0.8rem;color:var(--muted);line-height:1.72;margin-bottom:1.2rem;flex:1}
+.teaching-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.teaching-date{font-size:0.63rem;color:var(--muted);letter-spacing:0.08em}
+.teaching-action{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:none;border:1px solid var(--border);padding:0.28rem 0.75rem;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.2s}
+.teaching-action:hover{border-color:var(--gold);background:var(--gold-dim)}
+
+/* Article full view */
+.article-view{display:none;max-width:680px;margin:0 auto}
+.article-view.open{display:block}
+.article-header{margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.article-back{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;padding:0}
+.article-back:hover{color:var(--gold)}
+.article-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:300;color:var(--ivory);line-height:1.15;margin-bottom:0.8rem}
+.article-meta{font-size:0.68rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase}
+.article-body p{font-size:0.92rem;font-weight:300;line-height:1.95;color:var(--muted);margin-bottom:1.3rem}
+.article-body p:first-child{font-size:1rem;color:rgba(250,247,242,0.85)}
+.article-body h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--ivory);margin:2rem 0 0.8rem}
+.article-verse{background:var(--gold-dim);border-left:2px solid var(--gold);padding:1rem 1.2rem;margin:1.5rem 0}
+.article-verse-text{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--ivory);line-height:1.6}
+.article-verse-ref{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-top:0.4rem}
+
+/* ── CHAT ── */
+.chat-section{padding:5.5rem 2rem}
+.chat-wrapper{max-width:880px;margin:0 auto;border:1px solid var(--border)}
+.chat-topbar{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 1.4rem;border-bottom:1px solid var(--border);background:var(--surface)}
 .chat-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ivory)}
-.chat-status{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
-.status-dot{width:6px;height:6px;border-radius:50%;background:#7EC8A0;animation:pulse 2s infinite}
-.chat-messages{padding:1.5rem 1.2rem;display:flex;flex-direction:column;gap:1.2rem;min-height:200px;max-height:380px;overflow-y:auto}
-.msg{display:flex;gap:0.7rem;max-width:85%}
+.chat-status{display:flex;align-items:center;gap:0.45rem;font-size:0.64rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2.5s infinite;flex-shrink:0}
+.chat-messages{padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:1.2rem;min-height:220px;max-height:360px;overflow-y:auto}
+.msg{display:flex;gap:0.75rem;max-width:86%}
 .msg.ai{align-self:flex-start}
 .msg.user{align-self:flex-end;flex-direction:row-reverse}
-.msg-avatar{width:30px;height:30px;flex-shrink:0;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.75rem;background:rgba(200,169,110,0.06);color:var(--gold)}
-.msg-bubble{padding:0.85rem 1rem;border:1px solid var(--border);background:rgba(200,169,110,0.04);border-top:1px solid rgba(200,169,110,0.4)}
-.msg.user .msg-bubble{background:rgba(200,169,110,0.09);border-color:rgba(200,169,110,0.3);border-top-color:rgba(200,169,110,0.3)}
-.msg-text{font-size:0.87rem;line-height:1.75;color:var(--ivory);font-weight:300;white-space:pre-wrap}
-.msg-verse{margin-top:0.7rem;padding:0.6rem 0.8rem;border-left:2px solid var(--gold);background:rgba(200,169,110,0.06)}
-.msg-verse-text{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:var(--gold-light);line-height:1.6}
-.msg-verse-ref{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem}
-.chat-input-area{padding:1rem 1.2rem;border-top:1px solid var(--border);background:#141210}
-.chat-hints{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.6rem}
-.hint{font-size:0.65rem;padding:0.25rem 0.65rem;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.2s;background:none;font-family:'Jost',sans-serif}
+.msg-avatar{width:30px;height:30px;flex-shrink:0;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.72rem;background:var(--gold-dim);color:var(--gold)}
+.msg-bubble{padding:0.85rem 1.1rem;border:1px solid var(--border);background:rgba(200,169,110,0.04);border-top:1px solid rgba(200,169,110,0.4)}
+.msg.user .msg-bubble{background:rgba(200,169,110,0.08);border-color:rgba(200,169,110,0.28);border-top-color:rgba(200,169,110,0.28)}
+.msg-text{font-size:0.86rem;line-height:1.78;color:var(--ivory);font-weight:300;white-space:pre-wrap;word-break:break-word}
+.msg-verse{margin-top:0.7rem;padding:0.6rem 0.9rem;border-left:2px solid var(--gold);background:rgba(200,169,110,0.06)}
+.msg-verse-text{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:var(--gold-light);line-height:1.58}
+.msg-verse-ref{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.25rem}
+.chat-input-area{padding:1rem 1.4rem;border-top:1px solid var(--border);background:var(--surface)}
+.chat-hints{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.65rem}
+.hint{font-size:0.63rem;padding:0.24rem 0.65rem;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.2s;background:none;font-family:'Jost',sans-serif}
 .hint:hover{border-color:var(--gold);color:var(--gold)}
-.chat-input-row{display:flex;gap:0.6rem;align-items:flex-end}
-.chat-input{flex:1;background:rgba(250,247,242,0.04);border:1px solid var(--border);color:var(--ivory);padding:0.65rem 0.9rem;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;resize:none;outline:none;min-height:40px}
+.chat-row{display:flex;gap:0.7rem;align-items:flex-end}
+.chat-input{flex:1;background:rgba(250,247,242,0.04);border:1px solid var(--border);color:var(--ivory);padding:0.65rem 0.95rem;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;resize:none;outline:none;min-height:40px;max-height:100px;transition:border-color 0.2s}
+.chat-input:focus{border-color:rgba(200,169,110,0.45)}
 .chat-input::placeholder{color:var(--muted)}
 .chat-send{background:var(--gold);border:none;width:40px;height:40px;flex-shrink:0;cursor:pointer;color:var(--charcoal);font-size:1rem;transition:background 0.2s}
 .chat-send:hover{background:var(--gold-light)}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
-.feature{border-top:1px solid var(--border);padding-top:1.3rem}
-.feature-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(200,169,110,0.2);font-weight:300;line-height:1;margin-bottom:0.6rem}
-.feature-title{font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ivory);margin-bottom:0.5rem}
-.feature-desc{font-size:0.8rem;color:var(--muted);line-height:1.7}
-.cta{padding:7rem 1.5rem;text-align:center;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(200,169,110,0.06),transparent 70%)}
-.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--ivory);margin-bottom:1rem}
-.cta-sub{font-size:0.88rem;color:var(--muted);margin-bottom:2.5rem}
-footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;font-size:0.7rem;color:var(--muted);flex-wrap:wrap;gap:0.5rem}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--charcoal)}::-webkit-scrollbar-thumb{background:var(--border)}
+
+/* ── BOOKS / SHOP ── */
+.books-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);margin-top:2.5rem}
+.book-card{background:var(--charcoal);padding:1.8rem 1.5rem;display:flex;flex-direction:column;transition:background 0.2s}
+.book-card:hover{background:rgba(200,169,110,0.05)}
+.book-cover{width:100%;height:180px;background:linear-gradient(135deg,var(--surface) 0%,var(--surface2) 100%);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;font-size:3rem;position:relative;overflow:hidden}
+.book-cover::after{content:'';position:absolute;top:0;left:0;bottom:0;width:8px;background:linear-gradient(to right,rgba(0,0,0,0.3),transparent)}
+.book-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:400;color:var(--ivory);margin-bottom:0.4rem;line-height:1.3}
+.book-author{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.book-desc{font-size:0.78rem;color:var(--muted);line-height:1.65;margin-bottom:1.2rem;flex:1}
+.book-price{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);font-weight:300;margin-bottom:0.8rem}
+.book-price span{font-size:0.7rem;font-family:'Jost',sans-serif;font-weight:300;color:var(--muted);letter-spacing:0.05em}
+.book-btn{background:var(--gold);border:none;color:var(--charcoal);padding:0.65rem 1rem;font-family:'Jost',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;width:100%}
+.book-btn:hover{background:var(--gold-light)}
+
+/* Payment Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(14,12,10,0.88);z-index:500;align-items:center;justify-content:center;padding:1.5rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);max-width:500px;width:100%;padding:2.2rem;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;transition:color 0.2s;line-height:1}
+.modal-close:hover{color:var(--ivory)}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--ivory);margin-bottom:0.3rem}
+.modal-sub{font-size:0.78rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.5}
+.payment-methods{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.payment-method{background:var(--charcoal);padding:1.2rem 1.4rem;cursor:pointer;transition:background 0.2s;border-left:3px solid transparent}
+.payment-method:hover,.payment-method.selected{background:rgba(200,169,110,0.08);border-left-color:var(--gold)}
+.pm-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:0}
+.pm-icon{font-size:1.3rem;flex-shrink:0}
+.pm-name{font-size:0.82rem;font-weight:500;color:var(--ivory)}
+.pm-sub{font-size:0.72rem;color:var(--muted);margin-top:0.1rem}
+.pm-details{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.payment-method.selected .pm-details{display:block}
+.pm-detail-row{display:flex;align-items:center;gap:0.8rem;padding:0.5rem 0;border-bottom:1px solid rgba(200,169,110,0.08)}
+.pm-detail-row:last-child{border-bottom:none}
+.pm-detail-label{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);min-width:80px}
+.pm-detail-value{font-size:0.85rem;color:var(--ivory);font-weight:400;font-family:'Jost',sans-serif}
+.pm-copy-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:0.18rem 0.5rem;font-size:0.62rem;cursor:pointer;font-family:'Jost',sans-serif;transition:all 0.2s;margin-left:auto}
+.pm-copy-btn:hover{border-color:var(--gold);color:var(--gold)}
+.pm-note{font-size:0.74rem;color:var(--muted);line-height:1.6;margin-top:0.8rem;padding:0.7rem 0.9rem;background:rgba(200,169,110,0.05);border-left:2px solid var(--gold)}
+.modal-confirm-btn{background:var(--gold);border:none;color:var(--charcoal);padding:0.85rem 1.5rem;font-family:'Jost',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;width:100%;margin-top:1.5rem;transition:background 0.2s}
+.modal-confirm-btn:hover{background:var(--gold-light)}
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1px;background:var(--border);margin-top:2.5rem}
+.testimonial{background:var(--charcoal);padding:1.8rem;border-top:2px solid rgba(200,169,110,0.3)}
+.t-text{font-family:'Cormorant Garamond',serif;font-size:0.98rem;font-style:italic;font-weight:300;color:var(--ivory);line-height:1.72;margin-bottom:1rem}
+.t-author{font-size:0.63rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold)}
+
+/* ── TRUST ── */
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1px;background:var(--border);margin-top:2.5rem}
+.trust-badge{background:var(--charcoal);padding:1.2rem 1.4rem;display:flex;align-items:center;gap:0.9rem}
+.tb-icon{font-size:1.15rem;flex-shrink:0}
+.tb-name{font-size:0.8rem;color:var(--ivory);font-weight:400;line-height:1.3}
+.tb-sub{font-size:0.64rem;color:var(--muted);margin-top:0.15rem;line-height:1.35}
+
+/* ── CTA ── */
+.cta-section{padding:7rem 2rem;text-align:center;background:radial-gradient(ellipse 65% 50% at 50% 50%,rgba(200,169,110,0.07),transparent 70%)}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.8rem);font-weight:300;color:var(--ivory);margin-bottom:0.9rem;line-height:1.1}
+.cta-sub{font-size:0.88rem;color:var(--muted);margin-bottom:2.5rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.8}
+.cta-note{font-size:0.7rem;color:var(--muted);margin-top:1.1rem;letter-spacing:0.06em}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:2.5rem 2.5rem 2rem;display:flex;flex-direction:column;gap:1.5rem}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.08em}
+.footer-logo small{display:block;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);font-family:'Jost',sans-serif;margin-top:0.2rem;font-style:normal}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;padding-top:1.2rem;border-top:1px solid rgba(200,169,110,0.08);font-size:0.66rem;color:var(--muted);letter-spacing:0.05em}
+.footer-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.82rem;color:rgba(200,169,110,0.45);text-align:center;padding-top:0.5rem}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .nav-center{display:none}
+  .nav-hamburger{display:flex}
+  .about-grid{grid-template-columns:1fr}
+  .about-photo-wrap{max-width:220px;margin:0 auto 2rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  nav{padding:0.9rem 1.4rem}
+  .hero{padding:7rem 1.4rem 4rem}
+  .section,.section-dark,.chat-section{padding:4rem 1.4rem}
+  .modal{padding:1.5rem}
+  .footer-top{flex-direction:column}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">NURU <span>AI</span></div>
+  <a href="#" class="nav-logo">NURU <span>AI</span></a>
+  <div class="nav-center">
+    <a href="#about" data-en="About" data-sw="Kuhusu">About</a>
+    <a href="#teachings" data-en="Teachings" data-sw="Mafundisho">Teachings</a>
+    <a href="#books" data-en="Books" data-sw="Vitabu">Books</a>
+    <a href="#modes" data-en="Denominations" data-sw="Madhehebu">Denominations</a>
+    <a href="#chat" data-en="Counsel" data-sw="Ushauri">Counsel</a>
+  </div>
   <div class="nav-right">
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
       <button class="lang-btn" onclick="setLang('sw',this)">SW</button>
     </div>
-    <button class="nav-cta" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Begin" data-sw="Anza">Begin</button>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <button class="nav-cta" onclick="scroll2('chat')" data-en="Begin" data-sw="Anza">Begin</button>
   </div>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()" data-en="About" data-sw="Kuhusu">About</a>
+  <a href="#teachings" onclick="closeMenu()" data-en="Teachings" data-sw="Mafundisho">Teachings</a>
+  <a href="#books" onclick="closeMenu()" data-en="Books" data-sw="Vitabu">Books</a>
+  <a href="#modes" onclick="closeMenu()" data-en="Denominations" data-sw="Madhehebu">Denominations</a>
+  <a href="#chat" onclick="closeMenu()" data-en="Spiritual Counsel" data-sw="Ushauri wa Kiroho">Spiritual Counsel</a>
+</div>
+
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-line"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-vline"></div>
   <p class="hero-eyebrow" data-en="Spiritual Intelligence Platform" data-sw="Jukwaa la Akili ya Kiroho">Spiritual Intelligence Platform</p>
   <h1 class="hero-title">
-    <span data-en="Wisdom for the" data-sw="Hekima kwa">Wisdom for the</span><br>
-    <em data-en="Modern Believer" data-sw="Mwamini wa Kisasa">Modern Believer</em>
+    <span data-en="Where Faith Finds" data-sw="Mahali Ambapo Imani">Where Faith Finds</span><br>
+    <em data-en="Its Footing" data-sw="Inapata Nguvu Zake">Its Footing</em>
   </h1>
-  <p class="hero-sub" data-en="NURU AI offers theologically grounded guidance, denomination-aware counsel, and scripture-rooted wisdom — available to all who seek." data-sw="NURU AI inatoa mwongozo wa kiteolojia, ushauri unaozingatia madhehebu, na hekima ya maandiko — kwa kila anayetafuta.">NURU AI offers theologically grounded guidance, denomination-aware counsel, and scripture-rooted wisdom — available to all who seek.</p>
+  <p class="hero-sub" data-en="A sanctuary for the seeker, the shepherd, and the servant — where timeless spiritual wisdom meets the courage to live it out loud." data-sw="Mahali pa mapumziko kwa mtafutaji, mchungaji, na mtumishi — mahali ambapo hekima ya milele ya kiroho inakutana na ujasiri wa kuiishi hadharani.">A sanctuary for the seeker, the shepherd, and the servant — where timeless spiritual wisdom meets the courage to live it out loud.</p>
   <div class="hero-actions">
-    <button class="btn-primary" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Start Conversation" data-sw="Anza Mazungumzo">Start Conversation</button>
-    <button class="btn-secondary" onclick="document.getElementById('modes').scrollIntoView({behavior:'smooth'})" data-en="Choose Denomination" data-sw="Chagua Dhehebu">Choose Denomination</button>
+    <button class="btn-primary" onclick="scroll2('chat')" data-en="Seek Counsel" data-sw="Tafuta Ushauri">Seek Counsel</button>
+    <button class="btn-secondary" onclick="scroll2('about')" data-en="Explore the Mission" data-sw="Gundua Dhamira">Explore the Mission</button>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- MISSION STRIP -->
+<div class="mission-strip">
+  <p class="mission-quote" data-en='"A shepherd does not drive the flock — he walks with them, knows their name, and leads them toward living water."' data-sw='"Mchungaji hamsukumi kundi — anatembea nazo, anajua majina yao, na anawaongoza kwenye maji ya uzima."'>"A shepherd does not drive the flock — he walks with them, knows their name, and leads them toward living water."</p>
+  <p class="mission-attr">— Mchungaji Valentino</p>
+</div>
 
-<div id="modes">
+<!-- STATS -->
 <div class="section">
-  <p class="section-label" data-en="Choose Your Path" data-sw="Chagua Njia Yako">Choose Your Path</p>
-  <h2 class="section-title" data-en="Select a Denomination Mode" data-sw="Chagua Hali ya Dhehebu">Select a Denomination Mode</h2>
-  <div class="modes-grid">
-    <div class="mode-card"><div class="mode-icon">✝️</div><div class="mode-name" data-en="General Christian" data-sw="Mkristo wa Jumla">General Christian</div><div class="mode-desc" data-en="Broad guidance rooted in core Christian doctrine and scripture." data-sw="Mwongozo mpana unaozingatia mafundisho ya msingi ya Kikristo.">Broad guidance rooted in core Christian doctrine and scripture.</div></div>
-    <div class="mode-card"><div class="mode-icon">⛪</div><div class="mode-name" data-en="Catholic" data-sw="Katoliki">Catholic</div><div class="mode-desc" data-en="Guided by the Catechism, papal teaching, and sacramental theology." data-sw="Inaongozwa na Katekisimu, mafundisho ya Papa, na teolojia ya sakramenti.">Guided by the Catechism, papal teaching, and sacramental theology.</div></div>
-    <div class="mode-card"><div class="mode-icon">📖</div><div class="mode-name" data-en="Anglican" data-sw="Anglikana">Anglican</div><div class="mode-desc" data-en="Rooted in Scripture, Tradition, and Reason via the Book of Common Prayer." data-sw="Imejengwa juu ya Maandiko, Mapokeo, na Akili kupitia Kitabu cha Sala.">Rooted in Scripture, Tradition, and Reason via the Book of Common Prayer.</div></div>
-    <div class="mode-card"><div class="mode-icon">🕊️</div><div class="mode-name" data-en="Lutheran" data-sw="Kilutheri">Lutheran</div><div class="mode-desc" data-en="Grounded in the Reformation tradition, grace-centred and Confessional." data-sw="Imejengwa katika mapokeo ya Matengenezo, inayozingatia neema.">Grounded in the Reformation tradition, grace-centred and Confessional.</div></div>
-    <div class="mode-card"><div class="mode-icon">💬</div><div class="mode-name" data-en="Counseling" data-sw="Ushauri">Counseling</div><div class="mode-desc" data-en="Spiritual support for life's most difficult seasons." data-sw="Msaada wa kiroho kwa nyakati ngumu zaidi za maisha.">Spiritual support for life's most difficult seasons.</div></div>
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">7+</div>
+      <div class="stat-label" data-en="Years of Ministry" data-sw="Miaka ya Huduma">Years of Ministry</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500+</div>
+      <div class="stat-label" data-en="Communities Served" data-sw="Jamii Zilizohudumika">Communities Served</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label" data-en="Nation — Tanzania" data-sw="Taifa — Tanzania">Nation — Tanzania</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label" data-en="Denomination Modes" data-sw="Hali za Madhehebu">Denomination Modes</div>
+    </div>
   </div>
 </div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div id="about" class="section-dark">
+  <div class="section-dark-inner">
+    <div class="eyebrow" data-en="Our Story" data-sw="Hadithi Yetu">Our Story</div>
+    <h2 class="section-title" data-en="A Voice Forged in <em>Faith</em>,<br>Offered in Love" data-sw="Sauti Iliyoumbwa kwa <em>Imani</em>,<br>Inayotolewa kwa Upendo">A Voice Forged in <em>Faith</em>,<br>Offered in Love</h2>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img id="pastor-photo" class="about-photo" src="" alt="Mchungaji Valentino — Anglican Diocese of Central Tanganyika"/>
+        <div class="about-frame"></div>
+        <div class="about-badge">✝ <span data-en="Diocese of Central Tanganyika (DCT)" data-sw="Dayosisi ya Central Tanganyika (DCT)">Diocese of Central Tanganyika (DCT)</span></div>
+      </div>
+      <div>
+        <p class="body-text" data-en="Mchungaji Valentino — whose name means 'shepherd' — is a priest of the Anglican Church, Diocese of Central Tanganyika (DCT), Dodoma, Tanzania. Under the spiritual leadership of Bp Rev. Dr. Dickson Chilongani PhD, he has served faithfully for over seven years, walking alongside communities that the powerful often overlook and the comfortable easily forget." data-sw="Mchungaji Valentino — jina lake linamaanisha 'mchungaji' — ni kasisi wa Kanisa la Anglikana, Dayosisi ya Central Tanganyika (DCT), Dodoma, Tanzania. Chini ya uongozi wa kiroho wa Askofu Rev. Dr. Dickson Chilongani PhD, amehudumu kwa uaminifu kwa zaidi ya miaka saba, akitembea pamoja na jamii ambazo wenye nguvu mara nyingi husahau na wenye starehe huacha nyuma.">Mchungaji Valentino — whose name means 'shepherd' — is a priest of the Anglican Church, Diocese of Central Tanganyika (DCT), Dodoma, Tanzania. Under the spiritual leadership of Bp Rev. Dr. Dickson Chilongani PhD, he has served faithfully for over seven years, walking alongside communities that the powerful often overlook and the comfortable easily forget.</p>
+        <div class="about-quote" data-en='"This is not a platform. It is a presence. A reminder that every soul deserves a shepherd who will not abandon them when the terrain grows rough."' data-sw='"Hii si jukwaa tu. Ni uwepo. Ni ukumbusho kwamba kila roho anastahili mchungaji ambaye hatamwacha wakati njia inazidi kuwa ngumu."'>"This is not a platform. It is a presence. A reminder that every soul deserves a shepherd who will not abandon them when the terrain grows rough."</div>
+        <p class="body-text" data-en="NURU AI — meaning 'light' in Swahili — bridges the ancient wisdom of scripture with the honest needs of modern life, offering AI-powered spiritual counsel, pastoral teachings, and a community of faith to all who seek." data-sw="NURU AI — ikimaanisha 'nuru' kwa Kiswahili — inaunganisha hekima ya kale ya maandiko na mahitaji ya kweli ya maisha ya kisasa, ikitoa ushauri wa kiroho unaotumia AI, mafundisho ya kichungaji, na jamii ya imani kwa wote wanaotafuta.">NURU AI — meaning 'light' in Swahili — bridges the ancient wisdom of scripture with the honest needs of modern life, offering AI-powered spiritual counsel, pastoral teachings, and a community of faith to all who seek.</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2019</div>
+            <div class="tl-text"><strong data-en="Ordained to Ministry" data-sw="Kuwekwa Wakfu kwa Huduma">Ordained to Ministry</strong><span data-en="Ordained as a priest in the Anglican Diocese of Central Tanganyika, Dodoma, Tanzania — a calling fulfilled with gladness and reverence." data-sw="Amewekwa wakfu kama kasisi katika Dayosisi ya Anglikana ya Central Tanganyika, Dodoma, Tanzania — wito uliotimiwa kwa furaha na heshima.">Ordained as a priest in the Anglican Diocese of Central Tanganyika, Dodoma, Tanzania — a calling fulfilled with gladness and reverence.</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2021</div>
+            <div class="tl-text"><strong data-en="Growing the Flock" data-sw="Kukuza Kundi">Growing the Flock</strong><span data-en="Expanded pastoral ministry to serve over 500 communities across Tanzania, reaching the overlooked and the weary." data-sw="Alipanua huduma ya kichungaji kufikia zaidi ya jamii 500 kote Tanzania, akifikia waliosahauliwa na waliochoka.">Expanded pastoral ministry to serve over 500 communities across Tanzania, reaching the overlooked and the weary.</span></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-text"><strong data-en="NURU AI Launched" data-sw="NURU AI Inazinduliwa">NURU AI Launched</strong><span data-en="Africa's first structured Spiritual AI platform goes live — extending pastoral reach beyond the walls of any single church." data-sw="Jukwaa la kwanza la AI ya Kiroho barani Afrika linazinduliwa — likipanua ufikiaji wa kichungaji zaidi ya kuta za kanisa lolote moja.">Africa's first structured Spiritual AI platform goes live — extending pastoral reach beyond the walls of any single church.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="divider"></div>
 
-<div class="chat-section" id="chat-section">
-  <div style="max-width:860px;margin:0 auto 2rem">
-    <p class="section-label" data-en="Chat Interface" data-sw="Kiolesura cha Mazungumzo">Chat Interface</p>
-    <h2 class="section-title" data-en="Speak with NURU AI" data-sw="Zungumza na NURU AI">Speak with NURU AI</h2>
+<!-- BENEFITS -->
+<div class="section">
+  <div class="eyebrow" data-en="What We Offer" data-sw="Tunachotoa">What We Offer</div>
+  <h2 class="section-title" data-en="More Than a Message.<br><em>A Movement.</em>" data-sw="Zaidi ya Ujumbe.<br><em>Ni Harakati.</em>">More Than a Message.<br><em>A Movement.</em></h2>
+  <div class="benefits-grid">
+    <div class="benefit"><span class="benefit-icon">🕊️</span><div class="benefit-title" data-en="Spiritual Nourishment" data-sw="Lishe ya Kiroho">Spiritual Nourishment</div><p class="benefit-desc" data-en="Soul-stirring teachings drawn from scripture, lived experience, and honest wrestling with faith — meeting you exactly where you are, no spiritual résumé required." data-sw="Mafundisho yanayochochea roho, yanayotokana na maandiko, uzoefu wa maisha, na kushindana kwa uaminifu na imani — yakikufikia mahali ulipo, bila sharti la historia yako ya kiroho.">Soul-stirring teachings drawn from scripture, lived experience, and honest wrestling with faith — meeting you exactly where you are, no spiritual résumé required.</p></div>
+    <div class="benefit"><span class="benefit-icon">🌿</span><div class="benefit-title" data-en="Community That Holds" data-sw="Jamii Inayoshika">Community That Holds</div><p class="benefit-desc" data-en="True belonging is rare. Here, find fellow travellers who ask hard questions, sit with you in silence, and celebrate your growth without judgment." data-sw="Kukubalika kwa kweli ni jambo nadra. Hapa, pata wasafiri wenzako wanaouliza maswali magumu, wanaokaa nawe kimya, na wanaosherehekea ukuaji wako bila kukuhukumu.">True belonging is rare. Here, find fellow travellers who ask hard questions, sit with you in silence, and celebrate your growth without judgment.</p></div>
+    <div class="benefit"><span class="benefit-icon">📖</span><div class="benefit-title" data-en="Teaching That Transforms" data-sw="Mafundisho Yanayobadilisha">Teaching That Transforms</div><p class="benefit-desc" data-en="Not sermons to sit through — encounters to carry with you. Each lesson is crafted to move from your mind into your Monday, from the sanctuary into your street." data-sw="Si mahubiri ya kukaa tu — ni mazungumzo ya kubeba nawe. Kila somo limeundwa kusogea kutoka akilini mwako hadi Jumatatu yako, kutoka kanisani hadi mtaani.">Not sermons to sit through — encounters to carry with you. Each lesson is crafted to move from your mind into your Monday, from the sanctuary into your street.</p></div>
+    <div class="benefit"><span class="benefit-icon">🌱</span><div class="benefit-title" data-en="Leadership Discipleship" data-sw="Uanafunzi wa Uongozi">Leadership Discipleship</div><p class="benefit-desc" data-en="Called to lead but uncertain how? Walk alongside mentorship that builds character, not just competence — shaping shepherds, not merely managers." data-sw="Umeitwa kuongoza lakini hujui jinsi gani? Tembea pamoja na uelekezaji unaokujenga tabia, si ujuzi tu — ukiumba wachungaji, si wasimamizi tu.">Called to lead but uncertain how? Walk alongside mentorship that builds character, not just competence — shaping shepherds, not merely managers.</p></div>
+    <div class="benefit"><span class="benefit-icon">🔥</span><div class="benefit-title" data-en="Courageous Conversations" data-sw="Mazungumzo ya Ujasiri">Courageous Conversations</div><p class="benefit-desc" data-en="Faith that refuses to engage difficult questions is not faith — it is fear wearing a respectable suit. We address grief, doubt, purpose, and justice with honesty and love." data-sw="Imani inayokataa kushughulikia maswali magumu si imani — ni hofu iliyovaa suti ya heshima. Tunashughulikia huzuni, mashaka, kusudi, na haki kwa uaminifu na upendo.">Faith that refuses to engage difficult questions is not faith — it is fear wearing a respectable suit. We address grief, doubt, purpose, and justice with honesty and love.</p></div>
+    <div class="benefit"><span class="benefit-icon">🤝</span><div class="benefit-title" data-en="A Legacy of Service" data-sw="Urithi wa Huduma">A Legacy of Service</div><p class="benefit-desc" data-en="Every resource, teaching, and conversation is anchored in service to others. We exist not to build an empire, but to strengthen every hand that reaches toward the light." data-sw="Kila rasilimali, mafundisho, na mazungumzo vimejengwa juu ya huduma kwa wengine. Tupo si kujenga ufalme, bali kuimarisha kila mkono unaonyooshwa kuelekea nuru.">Every resource, teaching, and conversation is anchored in service to others. We exist not to build an empire, but to strengthen every hand that reaches toward the light.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TEACHINGS -->
+<div id="teachings" class="section-dark">
+  <div class="section-dark-inner">
+    <div class="eyebrow" data-en="Teachings" data-sw="Mafundisho">Teachings</div>
+    <h2 class="section-title" data-en="Words That <em>Move Mountains</em>" data-sw="Maneno Yanayosogeza <em>Milima</em>">Words That <em>Move Mountains</em></h2>
+    <p class="body-text" style="max-width:600px;margin-bottom:2rem" data-en="Written articles, audio messages, and video sermons from Mchungaji Valentino — crafted to travel from the sanctuary into your daily life." data-sw="Makala ya maandishi, ujumbe wa sauti, na mahubiri ya video kutoka kwa Mchungaji Valentino — yaliyoundwa kusafiri kutoka kanisani hadi katika maisha yako ya kila siku.">Written articles, audio messages, and video sermons from Mchungaji Valentino — crafted to travel from the sanctuary into your daily life.</p>
+
+    <div class="teachings-tabs">
+      <button class="tab-btn active" onclick="switchTab('articles',this)" data-en="📝 Articles" data-sw="📝 Makala">📝 Articles</button>
+      <button class="tab-btn" onclick="switchTab('audio',this)" data-en="🎵 Audio" data-sw="🎵 Sauti">🎵 Audio</button>
+      <button class="tab-btn" onclick="switchTab('video',this)" data-en="🎬 Video" data-sw="🎬 Video">🎬 Video</button>
+    </div>
+
+    <!-- Articles Tab -->
+    <div class="tab-panel active" id="tab-articles">
+      <div id="articles-list">
+        <div class="teachings-grid">
+          <div class="teaching-card" onclick="openArticle('article1')">
+            <div class="teaching-type">📝 <span data-en="Article" data-sw="Makala">Article</span></div>
+            <div class="teaching-title" data-en="When the Shepherd Is Weary" data-sw="Wakati Mchungaji Amechoka">When the Shepherd Is Weary</div>
+            <p class="teaching-excerpt" data-en="A message for every leader who has given more than they had, and quietly wondered if it was ever truly enough. Scripture speaks to the tired shepherd." data-sw="Ujumbe kwa kila kiongozi aliyetoa zaidi ya alichokuwa nacho, na kwa siri alijiuliza kama kilikuwa cha kutosha. Maandiko yanasema kwa mchungaji aliyechoka.">A message for every leader who has given more than they had, and quietly wondered if it was ever truly enough. Scripture speaks to the tired shepherd.</p>
+            <div class="teaching-footer">
+              <span class="teaching-date">Apr 2025</span>
+              <button class="teaching-action" data-en="Read →" data-sw="Soma →">Read →</button>
+            </div>
+          </div>
+          <div class="teaching-card" onclick="openArticle('article2')">
+            <div class="teaching-type">📝 <span data-en="Article" data-sw="Makala">Article</span></div>
+            <div class="teaching-title" data-en="The Courage to Doubt" data-sw="Ujasiri wa Kutilia Shaka">The Courage to Doubt</div>
+            <p class="teaching-excerpt" data-en="Doubt is not the opposite of faith — it is often its closest companion. An honest reflection on wrestling with God and emerging with a deeper trust." data-sw="Shaka si kinyume cha imani — mara nyingi ni mwenzake wa karibu zaidi. Tafakari ya uaminifu kuhusu kushindana na Mungu na kutoka na imani ya kina zaidi.">Doubt is not the opposite of faith — it is often its closest companion. An honest reflection on wrestling with God and emerging with a deeper trust.</p>
+            <div class="teaching-footer">
+              <span class="teaching-date">Mar 2025</span>
+              <button class="teaching-action" data-en="Read →" data-sw="Soma →">Read →</button>
+            </div>
+          </div>
+          <div class="teaching-card" onclick="openArticle('article3')">
+            <div class="teaching-type">📝 <span data-en="Article" data-sw="Makala">Article</span></div>
+            <div class="teaching-title" data-en="Grief, Grace, and the God Who Stays" data-sw="Huzuni, Neema, na Mungu Anayebaki">Grief, Grace, and the God Who Stays</div>
+            <p class="teaching-excerpt" data-en="In the valley of loss, faith is not about having answers — it is about trusting the One who holds all things together when we cannot." data-sw="Katika bonde la kupoteza, imani si kuhusu kuwa na majibu — ni kuhusu kumwamini Yule anayeshikilia mambo yote pamoja tunaposhindwa.">In the valley of loss, faith is not about having answers — it is about trusting the One who holds all things together when we cannot.</p>
+            <div class="teaching-footer">
+              <span class="teaching-date">Feb 2025</span>
+              <button class="teaching-action" data-en="Read →" data-sw="Soma →">Read →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article Full View -->
+      <div class="article-view" id="article-view">
+        <button class="article-back" onclick="closeArticle()" data-en="← Back to Articles" data-sw="← Rudi kwa Makala">← Back to Articles</button>
+        <div class="article-header">
+          <h2 class="article-title" id="art-title"></h2>
+          <p class="article-meta" id="art-meta"></p>
+        </div>
+        <div class="article-body" id="art-body"></div>
+      </div>
+    </div>
+
+    <!-- Audio Tab -->
+    <div class="tab-panel" id="tab-audio">
+      <div class="teachings-grid">
+        <div class="teaching-card">
+          <div class="teaching-type">🎵 <span data-en="Audio Message" data-sw="Ujumbe wa Sauti">Audio Message</span></div>
+          <div class="teaching-title" data-en="Faith in the Valley" data-sw="Imani Bondeni">Faith in the Valley</div>
+          <p class="teaching-excerpt" data-en="What do you do when God feels silent and distant? A pastoral audio message on persevering through seasons of spiritual dryness." data-sw="Unafanya nini Mungu anapoonekana kimya na mbali? Ujumbe wa sauti wa kichungaji kuhusu kuvumilia katika majira ya ukame wa kiroho.">What do you do when God feels silent and distant? A pastoral audio message on persevering through seasons of spiritual dryness.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="35 min" data-sw="Dakika 35">35 min</span>
+            <button class="teaching-action" data-en="▶ Listen" data-sw="▶ Sikiliza">▶ Listen</button>
+          </div>
+        </div>
+        <div class="teaching-card">
+          <div class="teaching-type">🎵 <span data-en="Audio Message" data-sw="Ujumbe wa Sauti">Audio Message</span></div>
+          <div class="teaching-title" data-en="Pray Without Ceasing" data-sw="Omba Bila Kukoma">Pray Without Ceasing</div>
+          <p class="teaching-excerpt" data-en="A practical and deeply personal message on building a life of prayer — not as a religious duty, but as a living conversation with God." data-sw="Ujumbe wa vitendo na wa kibinafsi sana kuhusu kujenga maisha ya sala — si kama wajibu wa kidini, bali kama mazungumzo hai na Mungu.">A practical and deeply personal message on building a life of prayer — not as a religious duty, but as a living conversation with God.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="28 min" data-sw="Dakika 28">28 min</span>
+            <button class="teaching-action" data-en="▶ Listen" data-sw="▶ Sikiliza">▶ Listen</button>
+          </div>
+        </div>
+        <div class="teaching-card">
+          <div class="teaching-type">🎵 <span data-en="Audio Message" data-sw="Ujumbe wa Sauti">Audio Message</span></div>
+          <div class="teaching-title" data-en="The Weight of Leadership" data-sw="Mzigo wa Uongozi">The Weight of Leadership</div>
+          <p class="teaching-excerpt" data-en="No one tells you how heavy it is to carry others. A pastoral conversation for leaders who give everything and wonder who carries them." data-sw="Hakuna anayekuambia jinsi inavyolemea kubeba wengine. Mazungumzo ya kichungaji kwa viongozi wanaotoa kila kitu na wanajua nani anawabeba.">No one tells you how heavy it is to carry others. A pastoral conversation for leaders who give everything and wonder who carries them.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="42 min" data-sw="Dakika 42">42 min</span>
+            <button class="teaching-action" data-en="▶ Listen" data-sw="▶ Sikiliza">▶ Listen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Tab -->
+    <div class="tab-panel" id="tab-video">
+      <div class="teachings-grid">
+        <div class="teaching-card">
+          <div class="teaching-type">🎬 <span data-en="Video Sermon" data-sw="Mahubiri ya Video">Video Sermon</span></div>
+          <div class="teaching-title" data-en="The Courage to Lead" data-sw="Ujasiri wa Kuongoza">The Courage to Lead</div>
+          <p class="teaching-excerpt" data-en="Called to shepherd your community but feeling unequipped? This Sunday sermon is for the leader who knows they were called, but fears they are not enough." data-sw="Umeitwa kuchunga jamii yako lakini unahisi hujawa tayari? Mahubiri haya ya Jumapili ni kwa kiongozi anayejua alikuwa na wito, lakini anaogopa kuwa hatatoshi.">Called to shepherd your community but feeling unequipped? This Sunday sermon is for the leader who knows they were called, but fears they are not enough.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="45 min" data-sw="Dakika 45">45 min</span>
+            <button class="teaching-action" data-en="▶ Watch" data-sw="▶ Tazama">▶ Watch</button>
+          </div>
+        </div>
+        <div class="teaching-card">
+          <div class="teaching-type">🎬 <span data-en="Video Sermon" data-sw="Mahubiri ya Video">Video Sermon</span></div>
+          <div class="teaching-title" data-en="Grace Enough" data-sw="Neema Inayotosha">Grace Enough</div>
+          <p class="teaching-excerpt" data-en="When you have failed more times than you can count, and wonder if God's grace truly has no end — this message answers that question directly." data-sw="Unapokuwa umeshindwa mara nyingi zaidi ya unavyoweza kuhesabu, na unajua kama neema ya Mungu kweli haina mwisho — ujumbe huu unajibu swali hilo moja kwa moja.">When you have failed more times than you can count, and wonder if God's grace truly has no end — this message answers that question directly.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="38 min" data-sw="Dakika 38">38 min</span>
+            <button class="teaching-action" data-en="▶ Watch" data-sw="▶ Tazama">▶ Watch</button>
+          </div>
+        </div>
+        <div class="teaching-card">
+          <div class="teaching-type">🎬 <span data-en="Video Sermon" data-sw="Mahubiri ya Video">Video Sermon</span></div>
+          <div class="teaching-title" data-en="Living Water" data-sw="Maji ya Uzima">Living Water</div>
+          <p class="teaching-excerpt" data-en="A meditation on John 4 — the woman at the well, the thirst that water cannot satisfy, and the Shepherd who meets us at our most honest moments." data-sw="Tafakari kuhusu Yohana 4 — mwanamke kwenye kisima, kiu ambayo maji hayawezi kutoshea, na Mchungaji anayekutana nasi katika nyakati zetu za ukweli zaidi.">A meditation on John 4 — the woman at the well, the thirst that water cannot satisfy, and the Shepherd who meets us at our most honest moments.</p>
+          <div class="teaching-footer">
+            <span class="teaching-date" data-en="50 min" data-sw="Dakika 50">50 min</span>
+            <button class="teaching-action" data-en="▶ Watch" data-sw="▶ Tazama">▶ Watch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- BOOKS -->
+<div id="books" class="section">
+  <div class="eyebrow" data-en="Bookshop" data-sw="Duka la Vitabu">Bookshop</div>
+  <h2 class="section-title" data-en="Words to <em>Keep With You</em>" data-sw="Maneno ya <em>Kubeba Nawe</em>">Words to <em>Keep With You</em></h2>
+  <p class="body-text" style="max-width:580px;margin-bottom:0" data-en="Books and devotional resources from Mchungaji Valentino — written to go with you into the ordinary and extraordinary moments of your life." data-sw="Vitabu na rasilimali za ibada kutoka kwa Mchungaji Valentino — vimeandikwa kukufuata katika nyakati za kawaida na za ajabu za maisha yako.">Books and devotional resources from Mchungaji Valentino — written to go with you into the ordinary and extraordinary moments of your life.</p>
+  <div class="books-grid">
+    <div class="book-card">
+      <div class="book-cover">📖</div>
+      <div class="book-title" data-en="The Shepherd's Voice" data-sw="Sauti ya Mchungaji">The Shepherd's Voice</div>
+      <div class="book-author">Mchungaji Valentino</div>
+      <p class="book-desc" data-en="A devotional guide for faith leaders navigating the silence between callings — 90 days of honest scripture, prayer, and pastoral reflection." data-sw="Mwongozo wa ibada kwa viongozi wa imani wanaopita katika ukimya kati ya miito — siku 90 za maandiko ya uaminifu, sala, na tafakari ya kichungaji.">A devotional guide for faith leaders navigating the silence between callings — 90 days of honest scripture, prayer, and pastoral reflection.</p>
+      <div class="book-price">TZS 15,000 <span>/ USD 6</span></div>
+      <button class="book-btn" onclick="openPayment('The Shepherd\'s Voice','TZS 15,000')" data-en="Buy Now" data-sw="Nunua Sasa">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <div class="book-cover">✝️</div>
+      <div class="book-title" data-en="Walking in the Light" data-sw="Kutembea katika Nuru">Walking in the Light</div>
+      <div class="book-author">Mchungaji Valentino</div>
+      <p class="book-desc" data-en="A practical guide to living your faith beyond Sunday — bringing scripture into Monday through a fresh reading of the Sermon on the Mount." data-sw="Mwongozo wa vitendo wa kuishi imani yako zaidi ya Jumapili — ukileta maandiko hadi Jumatatu kupitia usomaji mpya wa Mahubiri ya Mlimani.">A practical guide to living your faith beyond Sunday — bringing scripture into Monday through a fresh reading of the Sermon on the Mount.</p>
+      <div class="book-price">TZS 18,000 <span>/ USD 7</span></div>
+      <button class="book-btn" onclick="openPayment('Walking in the Light','TZS 18,000')" data-en="Buy Now" data-sw="Nunua Sasa">Buy Now</button>
+    </div>
+    <div class="book-card">
+      <div class="book-cover">🌿</div>
+      <div class="book-title" data-en="When the Valley Is Long" data-sw="Wakati Bonde Ni Refu">When the Valley Is Long</div>
+      <div class="book-author">Mchungaji Valentino</div>
+      <p class="book-desc" data-en="For those walking through grief, loss, or prolonged difficulty — a companion through Psalm 23 that refuses to offer easy answers." data-sw="Kwa wale wanaopita katika huzuni, kupoteza, au ugumu unaoendelea — mwenzako kupitia Zaburi ya 23 ambayo inakataa kutoa majibu rahisi.">For those walking through grief, loss, or prolonged difficulty — a companion through Psalm 23 that refuses to offer easy answers.</p>
+      <div class="book-price">TZS 12,000 <span>/ USD 5</span></div>
+      <button class="book-btn" onclick="openPayment('When the Valley Is Long','TZS 12,000')" data-en="Buy Now" data-sw="Nunua Sasa">Buy Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="paymentModal" onclick="closePaymentOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closePayment()">✕</button>
+    <div class="modal-title" id="modal-book-title">Complete Your Purchase</div>
+    <p class="modal-sub" id="modal-book-price"></p>
+    <div class="payment-methods">
+
+      <!-- Airtel Money -->
+      <div class="payment-method" onclick="selectPayment(this,'airtel')">
+        <div class="pm-header">
+          <span class="pm-icon">📱</span>
+          <div><div class="pm-name">Airtel Money</div><div class="pm-sub" data-en="Tanzania Mobile Payment" data-sw="Malipo ya Simu Tanzania">Tanzania Mobile Payment</div></div>
+        </div>
+        <div class="pm-details">
+          <div class="pm-detail-row"><span class="pm-detail-label" data-en="Method" data-sw="Njia">Method</span><span class="pm-detail-value">Airtel Lipa</span></div>
+          <div class="pm-detail-row"><span class="pm-detail-label" data-en="Number" data-sw="Namba">Number</span><span class="pm-detail-value">145175708</span><button class="pm-copy-btn" onclick="copyText('145175708',event)" data-en="Copy" data-sw="Nakili">Copy</button></div>
+          <div class="pm-note" data-en="Dial *150*60# → Send Money → Lipa Namba → Enter 145175708 → Enter amount → Confirm." data-sw="Piga *150*60# → Tuma Pesa → Lipa Namba → Weka 145175708 → Weka kiasi → Thibitisha.">Dial *150*60# → Send Money → Lipa Namba → Enter 145175708 → Enter amount → Confirm.</div>
+        </div>
+      </div>
+
+      <!-- CRDB Bank -->
+      <div class="payment-method" onclick="selectPayment(this,'crdb')">
+        <div class="pm-header">
+          <span class="pm-icon">🏦</span>
+          <div><div class="pm-name">CRDB Bank</div><div class="pm-sub" data-en="Bank Transfer" data-sw="Uhamisho wa Benki">Bank Transfer</div></div>
+        </div>
+        <div class="pm-details">
+          <div class="pm-detail-row"><span class="pm-detail-label" data-en="Bank" data-sw="Benki">Bank</span><span class="pm-detail-value">CRDB Bank Tanzania</span></div>
+          <div class="pm-detail-row"><span class="pm-detail-label" data-en="Account" data-sw="Akaunti">Account</span><span class="pm-detail-value">0152989066600</span><button class="pm-copy-btn" onclick="copyText('0152989066600',event)" data-en="Copy" data-sw="Nakili">Copy</button></div>
+          <div class="pm-detail-row"><span class="pm-detail-label" data-en="Name" data-sw="Jina">Name</span><span class="pm-detail-value">Valentino J. Chiswagala</span></div>
+          <div class="pm-note" data-en="After payment, please send your receipt via WhatsApp or email so we can confirm your order." data-sw="Baada ya malipo, tafadhali tuma risiti yako kwa WhatsApp au barua pepe ili tuweze kuthibitisha agizo lako.">After payment, please send your receipt via WhatsApp or email so we can confirm your order.</div>
+        </div>
+      </div>
+
+      <!-- PayPal -->
+      <div class="payment-method" onclick="selectPayment(this,'paypal')">
+        <div class="pm-header">
+          <span class="pm-icon">💳</span>
+          <div><div class="pm-name">PayPal</div><div class="pm-sub" data-en="International Card Payment" data-sw="Malipo ya Kadi ya Kimataifa">International Card Payment</div></div>
+        </div>
+        <div class="pm-details">
+          <div class="pm-note" data-en="Click below to pay securely via PayPal. You will be redirected to PayPal to complete your payment." data-sw="Bonyeza hapa chini kulipa kwa usalama kupitia PayPal. Utaelekezwa kwa PayPal kukamilisha malipo yako.">Click below to pay securely via PayPal. You will be redirected to PayPal to complete your payment.</div>
+          <div style="margin-top:0.8rem">
+            <button class="book-btn" style="font-size:0.75rem" onclick="alert('PayPal link will be added soon. Please use Airtel Money or CRDB Bank for now.')" data-en="Pay with PayPal →" data-sw="Lipa kwa PayPal →">Pay with PayPal →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="modal-confirm-btn" onclick="confirmOrder()" data-en="I Have Completed Payment — Notify Me" data-sw="Nimelipa — Niarifu">I Have Completed Payment — Notify Me</button>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DENOMINATION MODES -->
+<div id="modes" class="section-dark">
+  <div class="section-dark-inner">
+    <div class="eyebrow" data-en="Choose Your Path" data-sw="Chagua Njia Yako">Choose Your Path</div>
+    <h2 class="section-title" data-en="Denomination Modes" data-sw="Hali za Madhehebu">Denomination Modes</h2>
+    <p class="body-text" style="max-width:560px;margin-bottom:0" data-en="NURU AI speaks your theological language. Select your tradition and receive counsel grounded in your denomination's doctrine, liturgy, and heritage." data-sw="NURU AI inasema lugha yako ya kiteolojia. Chagua mapokeo yako na upokee ushauri uliozingatia mafundisho, liturujia, na urithi wa dhehebu lako.">NURU AI speaks your theological language. Select your tradition and receive counsel grounded in your denomination's doctrine, liturgy, and heritage.</p>
+    <div class="modes-grid">
+      <div class="mode-card"><span class="mode-icon">✝️</span><div class="mode-name" data-en="General Christian" data-sw="Mkristo wa Jumla">General Christian</div><p class="mode-desc" data-en="Broad, non-denominational guidance rooted in orthodox Christian doctrine and the full breadth of scripture." data-sw="Mwongozo mpana usio wa madhehebu, unaozingatia mafundisho ya Kikristo ya kawaida na upeo wote wa maandiko.">Broad, non-denominational guidance rooted in orthodox Christian doctrine and the full breadth of scripture.</p></div>
+      <div class="mode-card"><span class="mode-icon">⛪</span><div class="mode-name" data-en="Catholic" data-sw="Katoliki">Catholic</div><p class="mode-desc" data-en="Guided by the Catechism, papal teaching, the seven sacraments, and the rich tradition of the Church Fathers." data-sw="Inaongozwa na Katekisimu, mafundisho ya Papa, sakramenti saba, na mapokeo tajiri ya Mababa wa Kanisa.">Guided by the Catechism, papal teaching, the seven sacraments, and the rich tradition of the Church Fathers.</p></div>
+      <div class="mode-card"><span class="mode-icon">📖</span><div class="mode-name" data-en="Anglican" data-sw="Anglikana">Anglican</div><p class="mode-desc" data-en="Rooted in Scripture, Tradition, and Reason. Draws from the Book of Common Prayer and the 39 Articles of Religion." data-sw="Imejengwa juu ya Maandiko, Mapokeo, na Akili. Inachota kutoka Kitabu cha Sala za Pamoja na Makala 39 ya Dini.">Rooted in Scripture, Tradition, and Reason. Draws from the Book of Common Prayer and the 39 Articles of Religion.</p></div>
+      <div class="mode-card"><span class="mode-icon">🕊️</span><div class="mode-name" data-en="Lutheran" data-sw="Kilutheri">Lutheran</div><p class="mode-desc" data-en="Grounded in the Reformation — justification by grace through faith alone, sola scriptura, and the Lutheran Confessions." data-sw="Imejengwa katika Matengenezo — uhalalisho kwa neema kupitia imani peke yake, sola scriptura, na Makiri ya Kilutheri.">Grounded in the Reformation — justification by grace through faith alone, sola scriptura, and the Lutheran Confessions.</p></div>
+      <div class="mode-card"><span class="mode-icon">💬</span><div class="mode-name" data-en="Counseling" data-sw="Ushauri">Counseling</div><p class="mode-desc" data-en="Pastoral care for marriage, grief, doubt, anxiety, and the weight of leadership — integrating scripture with compassionate pastoral wisdom." data-sw="Utunzaji wa kichungaji kwa ndoa, huzuni, mashaka, wasiwasi, na mzigo wa uongozi — ukiunganisha maandiko na hekima ya kichungaji yenye huruma.">Pastoral care for marriage, grief, doubt, anxiety, and the weight of leadership — integrating scripture with compassionate pastoral wisdom.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CHAT / COUNSEL -->
+<div id="chat" class="chat-section">
+  <div style="max-width:880px;margin:0 auto 2rem">
+    <div class="eyebrow" data-en="AI Spiritual Counsel" data-sw="Ushauri wa Kiroho wa AI">AI Spiritual Counsel</div>
+    <h2 class="section-title" data-en="Ask. Reflect. <em>Be Guided.</em>" data-sw="Uliza. Tafakari. <em>Ongozwa.</em>">Ask. Reflect. <em>Be Guided.</em></h2>
+    <p class="body-text" data-en="Bring your questions of faith, leadership, grief, or doubt. NURU AI offers thoughtful, scripture-rooted responses — grounded in the pastoral wisdom of Mchungaji Valentino." data-sw="Lete maswali yako ya imani, uongozi, huzuni, au mashaka. NURU AI inatoa majibu ya makini yenye msingi wa maandiko — yaliyojengwa juu ya hekima ya kichungaji ya Mchungaji Valentino.">Bring your questions of faith, leadership, grief, or doubt. NURU AI offers thoughtful, scripture-rooted responses — grounded in the pastoral wisdom of Mchungaji Valentino.</p>
   </div>
   <div class="chat-wrapper">
     <div class="chat-topbar">
-      <div class="chat-name">NURU — <span data-en="Spiritual Guide" data-sw="Mwongozo wa Kiroho">Spiritual Guide</span></div>
-      <div class="chat-status"><span class="status-dot"></span><span data-en="Online & Ready" data-sw="Mtandaoni & Tayari">Online & Ready</span></div>
+      <div class="chat-name">NURU — <span data-en="Spiritual Counsel" data-sw="Ushauri wa Kiroho">Spiritual Counsel</span></div>
+      <div class="chat-status"><span class="status-dot"></span><span data-en="Available" data-sw="Ipo">Available</span></div>
     </div>
     <div class="chat-messages" id="chat-messages">
       <div class="msg ai">
         <div class="msg-avatar">✝</div>
         <div><div class="msg-bubble">
-          <div class="msg-text" id="welcome-msg">Peace be with you. I am NURU — your AI spiritual companion. How may I serve you today?</div>
+          <div class="msg-text" id="welcome-msg">Peace be with you. I am NURU — a space for honest conversation about faith, life, and the questions that matter most. Bring what is on your heart. I am listening.</div>
           <div class="msg-verse">
             <div class="msg-verse-text" id="verse-text">"The Lord is my shepherd; I shall not want."</div>
             <div class="msg-verse-ref">Psalm 23:1</div>
@@ -149,13 +652,13 @@ footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;align
       </div>
     </div>
     <div class="chat-input-area">
-      <div class="chat-hints" id="hints-container">
-        <button class="hint" onclick="fillInput(this)" data-en="Give me today's scripture" data-sw="Nipe andiko la leo">Give me today's scripture</button>
-        <button class="hint" onclick="fillInput(this)" data-en="Help me with prayer" data-sw="Nisaidie na sala">Help me with prayer</button>
-        <button class="hint" onclick="fillInput(this)" data-en="Draft a Sunday sermon" data-sw="Andika mahubiri ya Jumapili">Draft a Sunday sermon</button>
-        <button class="hint" onclick="fillInput(this)" data-en="I need spiritual counsel" data-sw="Nahitaji ushauri wa kiroho">I need spiritual counsel</button>
+      <div class="chat-hints" id="chat-hints">
+        <button class="hint" data-en="Give me today's scripture" data-sw="Nipe andiko la leo" onclick="useHint(this)">Give me today's scripture</button>
+        <button class="hint" data-en="I am struggling with doubt" data-sw="Ninapigana na mashaka" onclick="useHint(this)">I am struggling with doubt</button>
+        <button class="hint" data-en="Help me with a sermon" data-sw="Nisaidie mahubiri" onclick="useHint(this)">Help me with a sermon</button>
+        <button class="hint" data-en="I need pastoral counsel" data-sw="Nahitaji ushauri wa kichungaji" onclick="useHint(this)">I need pastoral counsel</button>
       </div>
-      <div class="chat-input-row">
+      <div class="chat-row">
         <textarea class="chat-input" id="chat-input" rows="1" placeholder="Ask anything in faith…"></textarea>
         <button class="chat-send" onclick="sendMessage()">➤</button>
       </div>
@@ -165,111 +668,317 @@ footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;align
 
 <div class="divider"></div>
 
-<div class="section">
-  <p class="section-label" data-en="Platform Capabilities" data-sw="Uwezo wa Jukwaa">Platform Capabilities</p>
-  <h2 class="section-title" data-en="Built for Depth, Designed for Clarity" data-sw="Imejengwa kwa Kina, Imeundwa kwa Uwazi">Built for Depth, Designed for Clarity</h2>
-  <div class="features-grid">
-    <div class="feature"><div class="feature-num">01</div><div class="feature-title" data-en="Theological Accuracy" data-sw="Usahihi wa Kiteolojia">Theological Accuracy</div><div class="feature-desc" data-en="Each denomination module draws from verified doctrinal sources." data-sw="Kila moduli ya dhehebu inachota kutoka vyanzo vya mafundisho vilivyothibitishwa.">Each denomination module draws from verified doctrinal sources.</div></div>
-    <div class="feature"><div class="feature-num">02</div><div class="feature-title" data-en="Sermon Generator" data-sw="Kitengo cha Mahubiri">Sermon Generator</div><div class="feature-desc" data-en="Generate complete sermon outlines grounded in scripture." data-sw="Tengeneza muhtasari kamili wa mahubiri unaozingatia maandiko.">Generate complete sermon outlines grounded in scripture.</div></div>
-    <div class="feature"><div class="feature-num">03</div><div class="feature-title" data-en="Pastoral Counseling" data-sw="Ushauri wa Kichungaji">Pastoral Counseling</div><div class="feature-desc" data-en="Spiritual support for marriage, grief, doubt, and anxiety." data-sw="Msaada wa kiroho kwa ndoa, huzuni, mashaka, na wasiwasi.">Spiritual support for marriage, grief, doubt, and anxiety.</div></div>
-    <div class="feature"><div class="feature-num">04</div><div class="feature-title" data-en="Scripture Discovery" data-sw="Ugunduzi wa Maandiko">Scripture Discovery</div><div class="feature-desc" data-en="Contextual scripture recommendations for your spiritual need." data-sw="Mapendekezo ya maandiko yanayofaa hali yako ya kiroho.">Contextual scripture recommendations for your spiritual need.</div></div>
+<!-- TESTIMONIALS -->
+<div class="section-dark">
+  <div class="section-dark-inner">
+    <div class="eyebrow" data-en="Voices from the Journey" data-sw="Sauti kutoka Safarini">Voices from the Journey</div>
+    <h2 class="section-title" data-en="Lives Touched.<br><em>Stories Worth Telling.</em>" data-sw="Maisha Yaliyoguswa.<br><em>Hadithi Zinazostahili Kusemwa.</em>">Lives Touched.<br><em>Stories Worth Telling.</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial"><p class="t-text" data-en='"I came carrying years of church hurt and walked out with my faith — and myself — restored. Mchungaji Valentino has a rare gift for making the broken feel genuinely found."' data-sw='"Nilikuja na miaka ya maumivu ya kanisa na nikaondoka na imani yangu — na mimi mwenyewe — ikiwa imerejeshwa. Mchungaji Valentino ana kipaji cha nadra cha kuwafanya waliovunjika wahisi kweli kweli wamepatikana."'>"I came carrying years of church hurt and walked out with my faith — and myself — restored. Mchungaji Valentino has a rare gift for making the broken feel genuinely found."</p><p class="t-author" data-en="Believer — Dodoma, Tanzania" data-sw="Mwamini — Dodoma, Tanzania">Believer — Dodoma, Tanzania</p></div>
+      <div class="testimonial"><p class="t-text" data-en='"The teachings are not performances. They are honest, they are deep, and they have changed the way I lead both my family and my congregation."' data-sw='"Mafundisho si maonyesho. Ni ya kweli, ni ya kina, na yamebadilisha jinsi ninavyoongoza familia yangu na kanisa langu."'>"The teachings are not performances. They are honest, they are deep, and they have changed the way I lead both my family and my congregation."</p><p class="t-author" data-en="Pastor — Central Tanzania" data-sw="Mchungaji — Tanzania ya Kati">Pastor — Central Tanzania</p></div>
+      <div class="testimonial"><p class="t-text" data-en='"I have listened to many voices in the faith space. None carry the weight — and the warmth — that this ministry does. This is the real thing."' data-sw='"Nimesikiliza sauti nyingi katika uwanja wa imani. Hakuna inayobeba uzito — na joto — kama huduma hii inavyofanya. Hii ni jambo la kweli."'>"I have listened to many voices in the faith space. None carry the weight — and the warmth — that this ministry does. This is the real thing."</p><p class="t-author" data-en="Small Group Leader — Tanzania" data-sw="Kiongozi wa Kikundi — Tanzania">Small Group Leader — Tanzania</p></div>
+    </div>
   </div>
 </div>
 
-<div class="cta">
-  <h2 class="cta-title" data-en="Begin Your Spiritual Journey" data-sw="Anza Safari Yako ya Kiroho">Begin Your Spiritual Journey</h2>
-  <p class="cta-sub" data-en="Africa's first structured Spiritual AI platform — built with reverence, precision, and purpose." data-sw="Jukwaa la kwanza la AI ya Kiroho barani Afrika — lililojengwa kwa heshima, usahihi, na kusudi.">Africa's first structured Spiritual AI platform — built with reverence, precision, and purpose.</p>
-  <button class="btn-primary" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Start a Conversation" data-sw="Anza Mazungumzo">Start a Conversation</button>
+<div class="divider"></div>
+
+<!-- TRUST -->
+<div class="section">
+  <div class="eyebrow" style="justify-content:center" data-en="Why People Trust Us" data-sw="Kwa Nini Watu Wanaamini">Why People Trust Us</div>
+  <h2 class="section-title" style="text-align:center" data-en="Earn trust slowly.<br><em>Lose it never.</em>" data-sw="Pata uaminifu polepole.<br><em>Usikate kamwe.</em>">Earn trust slowly.<br><em>Lose it never.</em></h2>
+  <p class="body-text" style="text-align:center;max-width:540px;margin:0 auto 0" data-en="Here is why thousands of believers across Tanzania choose to share their most honest questions with this ministry." data-sw="Hii ndiyo sababu waumini wengi kote Tanzania wanachagua kushiriki maswali yao ya uaminifu zaidi na huduma hii.">Here is why thousands of believers across Tanzania choose to share their most honest questions with this ministry.</p>
+  <div class="badges-grid">
+    <div class="trust-badge"><span class="tb-icon">⛪</span><div><div class="tb-name" data-en="Anglican Church" data-sw="Kanisa la Anglikana">Anglican Church</div><div class="tb-sub" data-en="Diocese of Central Tanganyika (DCT)" data-sw="Dayosisi ya Central Tanganyika (DCT)">Diocese of Central Tanganyika (DCT)</div></div></div>
+    <div class="trust-badge"><span class="tb-icon">✝</span><div><div class="tb-name" data-en="Episcopal Leadership" data-sw="Uongozi wa Kiaskofu">Episcopal Leadership</div><div class="tb-sub">Bp Rev. Dr. Dickson Chilongani PhD</div></div></div>
+    <div class="trust-badge"><span class="tb-icon">🌍</span><div><div class="tb-name" data-en="Tanzania Ministry" data-sw="Huduma Tanzania">Tanzania Ministry</div><div class="tb-sub" data-en="Dodoma & surrounding regions" data-sw="Dodoma na maeneo ya jirani">Dodoma & surrounding regions</div></div></div>
+    <div class="trust-badge"><span class="tb-icon">🕊️</span><div><div class="tb-name" data-en="7+ Years Faithful Service" data-sw="Miaka 7+ ya Huduma ya Uaminifu">7+ Years Faithful Service</div><div class="tb-sub" data-en="Ordained 2019 — serving with dedication" data-sw="Amewekwa wakfu 2019 — anahudumu kwa bidii">Ordained 2019 — serving with dedication</div></div></div>
+    <div class="trust-badge"><span class="tb-icon">📖</span><div><div class="tb-name" data-en="Scripture-Grounded" data-sw="Imejengwa juu ya Maandiko">Scripture-Grounded</div><div class="tb-sub" data-en="All counsel anchored in God's Word" data-sw="Ushauri wote umejengwa juu ya Neno la Mungu">All counsel anchored in God's Word</div></div></div>
+    <div class="trust-badge"><span class="tb-icon">🤝</span><div><div class="tb-name" data-en="Pastoral Accountability" data-sw="Uwajibikaji wa Kichungaji">Pastoral Accountability</div><div class="tb-sub" data-en="Church oversight & full transparency" data-sw="Usimamizi wa kanisa & uwazi kamili">Church oversight & full transparency</div></div></div>
+  </div>
 </div>
 
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="cta-title" data-en="You Were Not Made<br>to Walk This Alone." data-sw="Hukuumbwa Kutembea<br>Hii Peke Yako.">You Were Not Made<br>to Walk This Alone.</h2>
+  <p class="cta-sub" data-en="Whether you are seeking answers, ready to lead, walking through grief, or simply searching for a voice that tells the truth with love — you are welcome here. Exactly as you are." data-sw="Iwe unatafuta majibu, uko tayari kuongoza, unapita katika huzuni, au unaitafuta sauti inayosema ukweli kwa upendo — unakaribushwa hapa. Hasa unavyokuwa.">Whether you are seeking answers, ready to lead, walking through grief, or simply searching for a voice that tells the truth with love — you are welcome here. Exactly as you are.</p>
+  <button class="btn-primary" onclick="scroll2('chat')" data-en="Begin the Conversation →" data-sw="Anza Mazungumzo →">Begin the Conversation →</button>
+  <p class="cta-note" data-en="No membership fees. No performance required. Just an open door." data-sw="Hakuna ada ya uanachama. Hakuna utendaji unaohitajika. Mlango wazi tu.">No membership fees. No performance required. Just an open door.</p>
+</div>
+
+<!-- FOOTER -->
 <footer>
-  <span class="footer-logo">NURU AI</span>
-  <span data-en="Spiritual Intelligence Platform · v1.0" data-sw="Jukwaa la Akili ya Kiroho · Toleo 1.0">Spiritual Intelligence Platform · v1.0</span>
-  <span data-en="Built with reverence & purpose" data-sw="Imejengwa kwa heshima na kusudi">Built with reverence & purpose</span>
+  <div class="footer-top">
+    <div class="footer-logo">
+      NURU AI
+      <small data-en="A Ministry of Mchungaji Valentino · Diocese of Central Tanganyika" data-sw="Huduma ya Mchungaji Valentino · Dayosisi ya Central Tanganyika">A Ministry of Mchungaji Valentino · Diocese of Central Tanganyika</small>
+    </div>
+    <div class="footer-links">
+      <a href="#about" data-en="About" data-sw="Kuhusu">About</a>
+      <a href="#teachings" data-en="Teachings" data-sw="Mafundisho">Teachings</a>
+      <a href="#books" data-en="Books" data-sw="Vitabu">Books</a>
+      <a href="#modes" data-en="Denominations" data-sw="Madhehebu">Denominations</a>
+      <a href="#chat" data-en="Counsel" data-sw="Ushauri">Counsel</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-en="© 2026 Mchungaji Valentino Ministries · NURU AI · All rights reserved." data-sw="© 2026 Huduma za Mchungaji Valentino · NURU AI · Haki zote zimehifadhiwa.">© 2026 Mchungaji Valentino Ministries · NURU AI · All rights reserved.</span>
+    <span data-en="Built with reverence and purpose." data-sw="Imejengwa kwa heshima na kusudi.">Built with reverence and purpose.</span>
+  </div>
+  <p class="footer-quote" data-en='"The good shepherd lays down his life for the sheep." — John 10:11' data-sw='"Mchungaji mwema hutoa maisha yake kwa ajili ya kondoo." — Yohana 10:11'>"The good shepherd lays down his life for the sheep." — John 10:11</p>
 </footer>
 
 <script>
-let lang = 'en';
-const WELCOME = {
-  en:"Peace be with you. I am NURU — your AI spiritual companion. How may I serve you today?",
-  sw:"Amani iwe nawe. Mimi ni NURU — msaidizi wako wa kiroho wa AI. Naweza kukusaidia nini leo?"
-};
-const VERSE = {
-  en:'"The Lord is my shepherd; I shall not want."',
-  sw:'"Bwana ni mchungaji wangu; sitapungukiwa na kitu."'
-};
-const PLACEHOLDER = {
-  en:"Ask anything in faith…",
-  sw:"Uliza chochote kwa imani…"
-};
-const RESPONSES = {
-  en:[
-    "Peace be with you. Scripture reminds us:\n\n\"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you.\" — Jeremiah 29:11\n\nTrust in His timing and His purpose for your life.",
-    "That is a beautiful question of faith. Cast all your anxiety on Him, because He cares for you. — 1 Peter 5:7\n\nWould you like me to offer a prayer for your situation?",
-    "The Scriptures speak clearly on this matter. Let us explore it together with wisdom and an open heart. God meets us where we are.",
-    "In the Christian tradition, we are reminded that God's grace is sufficient for every need. His strength is made perfect in our weakness. — 2 Corinthians 12:9"
-  ],
-  sw:[
-    "Amani iwe nawe. Maandiko yanakumbusha:\n\n\"Kwa maana najua mawazo ninayowaza ninyi, asema Bwana, mawazo ya amani wala si ya mabaya.\" — Yeremia 29:11\n\nAmini katika wakati Wake na kusudi Lake kwa maisha yako.",
-    "Hiyo ni swali zuri la imani. Mwambie wasiwasi wako wote, kwa maana anajali. — 1 Petro 5:7\n\nUnataka nikusalikie katika hali yako?",
-    "Maandiko yanazungumza wazi juu ya jambo hili. Tulichunguze pamoja kwa hekima na moyo wazi. Mungu anakutana nasi mahali tulipo.",
-    "Katika mapokeo ya Kikristo, tunakumbushwa kwamba neema ya Mungu inatosha kwa kila haja. Nguvu Zake zinakamilika katika udhaifu wetu. — 2 Wakorintho 12:9"
-  ]
-};
-let idx = 0;
+// ── Photo ─────────────────────────────────────────────────────────────────────
+document.getElementById('pastor-photo').src = 'data:image/jpeg;base64,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';
 
-function setLang(l, btn) {
+// ── Language ──────────────────────────────────────────────────────────────────
+let lang = 'en';
+const T = {
+  welcome:{
+    en:"Peace be with you. I am NURU — a space for honest conversation about faith, life, and the questions that matter most. Bring what is on your heart. I am listening.",
+    sw:"Amani iwe nawe. Mimi ni NURU — nafasi ya mazungumzo ya uaminifu kuhusu imani, maisha, na maswali yanayohusika zaidi. Lete lililo moyoni mwako. Ninakusikiliza."
+  },
+  verse:{
+    en:'"The Lord is my shepherd; I shall not want."',
+    sw:'"Bwana ni mchungaji wangu; sitapungukiwa na kitu."'
+  },
+  placeholder:{
+    en:"Ask anything in faith…",
+    sw:"Uliza chochote kwa imani…"
+  }
+};
+
+function setLang(l, btn){
   lang = l;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('[data-en]').forEach(el => {
-    el.textContent = el.dataset[l] || el.dataset.en;
+    const val = el.dataset[l] || el.dataset.en;
+    if(!val) return;
+    const tag = el.tagName;
+    if(['INPUT','TEXTAREA'].includes(tag)){
+      el.placeholder = val;
+    } else {
+      el.innerHTML = val;
+    }
   });
-  document.getElementById('chat-input').placeholder = PLACEHOLDER[l];
-  document.getElementById('welcome-msg').textContent = WELCOME[l];
-  document.getElementById('verse-text').textContent = VERSE[l];
+  const inp = document.getElementById('chat-input');
+  if(inp) inp.placeholder = T.placeholder[l];
+  const wm = document.getElementById('welcome-msg');
+  if(wm) wm.textContent = T.welcome[l];
+  const vt = document.getElementById('verse-text');
+  if(vt) vt.textContent = T.verse[l];
 }
 
-function fillInput(btn) {
-  document.getElementById('chat-input').value = btn.textContent;
+// ── Scroll with offset for fixed nav ─────────────────────────────────────────
+function scroll2(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const offset = 72;
+  const top = el.getBoundingClientRect().top + window.scrollY - offset;
+  window.scrollTo({top, behavior:'smooth'});
+}
+// Fix all anchor links to account for fixed nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    if(!id) return;
+    e.preventDefault();
+    scroll2(id);
+  });
+});
+
+// ── Mobile Menu ───────────────────────────────────────────────────────────────
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
 }
 
-function sendMessage() {
+// ── Teaching Tabs ─────────────────────────────────────────────────────────────
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// ── Articles ──────────────────────────────────────────────────────────────────
+const ARTICLES = {
+  article1:{
+    title:{en:"When the Shepherd Is Weary", sw:"Wakati Mchungaji Amechoka"},
+    meta:{en:"By Mchungaji Valentino · April 2025", sw:"Na Mchungaji Valentino · Aprili 2025"},
+    body:{
+      en:`<p>There is a particular kind of exhaustion that comes not from laziness, but from pouring out — day after day — more than you knew you had. It is the tiredness of the shepherd who has walked every trail, answered every cry at midnight, and still risen before dawn to lead the flock.</p>
+      <div class="article-verse"><div class="article-verse-text">"He makes me lie down in green pastures. He leads me beside still waters. He restores my soul."</div><div class="article-verse-ref">Psalm 23:2–3</div></div>
+      <p>Notice what the Psalmist does not say. He does not say that God restores the soul of the productive. Or the efficient. Or the strong. He says He restores <em>my</em> soul — the soul that is tired, that is dry, that has given what it had and found the well empty.</p>
+      <h3>The Shepherd Also Needs a Shepherd</h3>
+      <p>One of the most disorienting truths of ministry is that those who care for others often have no one caring for them. The counsellor who holds space for everyone else's grief rarely has a space where her own grief is held. The pastor who prays for healing seldom asks to be prayed for.</p>
+      <p>This is not a failure of character. It is the occupational hazard of the shepherd. And the answer, I have found, is not to give less — but to learn to receive. To come, weary and emptied, to the still waters. To allow the Shepherd of shepherds to do in you what you spend your life doing for others.</p>
+      <p>Your weariness is not a sign of weakness. It is a sign that you have been showing up. Now, let someone — the Someone who never sleeps — show up for you.</p>`,
+      sw:`<p>Kuna uchovu wa aina fulani ambao hutokani na uvivu, bali kutokana na kumwaga — siku baada ya siku — zaidi ya ulichojua kuwa nacho. Ni uchovu wa mchungaji ambaye amepita kila njia, amejibu kila kilio usiku wa manane, na bado ameamka mapema kuliko alfajiri kuongoza kundi.</p>
+      <div class="article-verse"><div class="article-verse-text">"Hunilaza katika malisho ya majani; Hunipeleka karibu na maji ya utulivu. Huniburudisha nafsi yangu."</div><div class="article-verse-ref">Zaburi 23:2–3</div></div>
+      <p>Angalia kisichosemwa na Mwandishi wa Zaburi. Hasemi kwamba Mungu anaburudisha nafsi ya mwenye tija. Au mwenye ufanisi. Au mwenye nguvu. Anasema anaburudisha nafsi <em>yangu</em> — nafsi iliyochoka, iliyo kame, iliyotoa kilichokuwa nacho na kupata kisima kikiwa tupu.</p>
+      <h3>Mchungaji Pia Anahitaji Mchungaji</h3>
+      <p>Moja ya kweli zinazosumbua zaidi za huduma ni kwamba wale wanaowatunza wengine mara nyingi hawana yeyote anayewatunza. Mshauri anayeshikilia nafasi kwa huzuni ya kila mtu mara chache ana nafasi ambapo huzuni yake mwenyewe inashikiliwa.</p>
+      <p>Hii si kasoro ya tabia. Ni hatari ya kazi ya mchungaji. Na jibu, nimeona, si kutoa kidogo — bali kujifunza kupokea. Kuja, ukiwa umechoka na kutupu, kwenye maji ya utulivu. Kuruhusu Mchungaji wa wachungaji akufanyie ulichotumia maisha yako kufanya kwa wengine.</p>
+      <p>Uchovu wako si ishara ya udhaifu. Ni ishara kwamba umekuwa ukihudhuria. Sasa, mruhusu mtu — Yule asiyesinzia kamwe — akuhudhirie wewe.</p>`
+    }
+  },
+  article2:{
+    title:{en:"The Courage to Doubt", sw:"Ujasiri wa Kutilia Shaka"},
+    meta:{en:"By Mchungaji Valentino · March 2025", sw:"Na Mchungaji Valentino · Machi 2025"},
+    body:{
+      en:`<p>Doubt is not the enemy of faith. In many seasons of my own journey, doubt has been its most honest companion — the thing that kept me from settling for a faith that was only inherited, never owned.</p>
+      <div class="article-verse"><div class="article-verse-text">"Immediately the father of the child cried out and said, 'I believe; help my unbelief!'"</div><div class="article-verse-ref">Mark 9:24</div></div>
+      <p>This father is my favourite figure in all of scripture. Not because he had great faith, but because he had the courage to say both things at once. I believe. Help my unbelief. He did not choose between honesty and hope — he brought both to Jesus and let Him hold the tension.</p>
+      <p>That is what I want to invite you to do. Bring your doubt. Not to destroy your faith, but to deepen it. A faith that has never been questioned is a faith that has never been tested. And a faith that has not been tested has not yet discovered how deep its roots truly go.</p>`,
+      sw:`<p>Shaka si adui wa imani. Katika misimu mingi ya safari yangu mwenyewe, shaka imekuwa mwenzake wa uaminifu zaidi — kitu kilichonizuia kuridhika na imani iliyokuwa tu ya kurithi, si ya kumilikiwa.</p>
+      <div class="article-verse"><div class="article-verse-text">"Mara baba wa mtoto akapaza sauti, akasema, Naamini; unisaidie udhaifu wangu wa kuamini."</div><div class="article-verse-ref">Marko 9:24</div></div>
+      <p>Baba huyu ni mtu wangu mpenzi katika maandiko yote. Si kwa sababu alikuwa na imani kubwa, bali kwa sababu alikuwa na ujasiri wa kusema mambo mawili kwa wakati mmoja. Naamini. Unisaidie kutokuamini kwangu. Hakuchagua kati ya uaminifu na tumaini — alivyaleta vyote kwa Yesu na kumruhusu ashikilie mvutano huo.</p>
+      <p>Hiyo ndiyo ninayotaka kukualika ufanye. Lete shaka yako. Si kuangamiza imani yako, bali kuiongezea kina. Imani ambayo haijawahi kuulizwa maswali ni imani ambayo haijawahi kupimwa. Na imani ambayo haijapimwa bado haijagundua jinsi mizizi yake inavyokwenda kwa kina.</p>`
+    }
+  },
+  article3:{
+    title:{en:"Grief, Grace, and the God Who Stays", sw:"Huzuni, Neema, na Mungu Anayebaki"},
+    meta:{en:"By Mchungaji Valentino · February 2025", sw:"Na Mchungaji Valentino · Februari 2025"},
+    body:{
+      en:`<p>I have sat at enough bedsides and gravesides to know this much: grief does not respond to theology the way we wish it would. You cannot argue someone out of sorrow. You cannot explain loss into meaning on the day it happens.</p>
+      <div class="article-verse"><div class="article-verse-text">"Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me."</div><div class="article-verse-ref">Psalm 23:4</div></div>
+      <p>The Psalmist does not say the valley disappears. He does not say it becomes comfortable. He says: <em>you are with me</em>. That is the entire promise. Not that grief ends quickly. Not that we are spared from the dark. But that in the dark, we are not alone.</p>
+      <p>If you are grieving today, I do not have words that will take your pain away. But I want you to know this: the Shepherd who walked into death and came out the other side is no stranger to the valley you are in. He has been there. He is there now. And He is not leaving.</p>`,
+      sw:`<p>Nimekaa karibu na vitanda vya wagonjwa na makaburi ya kutosha kujua hili: huzuni haistahidi kwa teolojia kama tungependa. Huwezi kumshawishi mtu kutoka kwenye huzuni. Huwezi kuelezea kupoteza kuwa na maana siku inayotokea.</p>
+      <div class="article-verse"><div class="article-verse-text">"Naam, nijapita kati ya bonde la uvuli wa mauti, Sitaogopa mabaya; Kwa maana wewe u pamoja nami."</div><div class="article-verse-ref">Zaburi 23:4</div></div>
+      <p>Mwandishi wa Zaburi hasemi bonde linatoweka. Hasemi linakuwa vizuri. Anasema: <em>wewe u pamoja nami</em>. Hiyo ndiyo ahadi yote. Si kwamba huzuni inamalizika haraka. Si kwamba tunaepushwa na giza. Bali kwamba katika giza, hatuko peke yetu.</p>
+      <p>Ukipitia huzuni leo, sina maneno yatakayoondoa maumivu yako. Lakini nataka ujue hili: Mchungaji aliyeingia katika kifo na kutoka upande mwingine si mgeni katika bonde unalolitembea. Amekuwepo. Yuko huko sasa. Na hataondoka.</p>`
+    }
+  }
+};
+
+function openArticle(id){
+  const art = ARTICLES[id];
+  if(!art) return;
+  document.getElementById('art-title').textContent = art.title[lang] || art.title.en;
+  document.getElementById('art-meta').textContent = art.meta[lang] || art.meta.en;
+  document.getElementById('art-body').innerHTML = art.body[lang] || art.body.en;
+  document.getElementById('articles-list').style.display = 'none';
+  document.getElementById('article-view').classList.add('open');
+  scroll2('teachings');
+}
+function closeArticle(){
+  document.getElementById('articles-list').style.display = 'block';
+  document.getElementById('article-view').classList.remove('open');
+}
+
+// ── Payment ───────────────────────────────────────────────────────────────────
+let currentBook = '';
+function openPayment(title, price){
+  currentBook = title;
+  document.getElementById('modal-book-title').textContent = lang === 'sw'
+    ? `Kamilisha Ununuzi Wako — ${title}`
+    : `Complete Your Purchase — ${title}`;
+  document.getElementById('modal-book-price').textContent = lang === 'sw'
+    ? `Bei: ${price}`
+    : `Price: ${price}`;
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  document.getElementById('paymentModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePayment(){
+  document.getElementById('paymentModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closePaymentOutside(e){
+  if(e.target === document.getElementById('paymentModal')) closePayment();
+}
+function selectPayment(el, method){
+  document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function copyText(text, e){
+  e.stopPropagation();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = e.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => btn.textContent = orig, 1800);
+  });
+}
+function confirmOrder(){
+  const msg = lang === 'sw'
+    ? `Asante! Tunapokea malipo yako kwa ajili ya "${currentBook}". Tafadhali tuma uthibitisho wako kwa WhatsApp au barua pepe. Tutakuwasiliana hivi karibuni. Mungu akubariki!`
+    : `Thank you! We have received notice of your payment for "${currentBook}". Please send your payment confirmation via WhatsApp or email and we will process your order promptly. God bless you!`;
+  alert(msg);
+  closePayment();
+}
+
+// ── Chat ──────────────────────────────────────────────────────────────────────
+const RESPONSES = {
+  en:[
+    "Peace be with you. Scripture speaks to this directly:\n\n\"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.\" — Jeremiah 29:11\n\nTrust in His timing. His purpose for your life is not finished.",
+    "That is a question worth sitting with. In the Anglican tradition, we hold that God meets us not only in the heights of worship, but in the valley of honest questioning.\n\n\"Cast all your anxiety on Him, because He cares for you.\" — 1 Peter 5:7\n\nWould you like me to offer a prayer for your situation?",
+    "This is at the heart of what faith asks of us. Let me share a thought from scripture, and then I would love to hear more about what you are carrying:\n\n\"Come to me, all who are weary and burdened, and I will give you rest.\" — Matthew 11:28\n\nWhat is the heaviest thing you are holding right now?",
+    "The Scriptures speak clearly and tenderly on this matter. I want to give you a thoughtful response — could you tell me a little more about your situation so I can walk with you more closely through it?"
+  ],
+  sw:[
+    "Amani iwe nawe. Maandiko yanazungumza wazi kuhusu hili:\n\n\"Kwa maana najua mawazo ninayowaza ninyi, asema Bwana, mawazo ya amani, wala si ya mabaya, kuwapa ninyi mwisho mnaotazamia.\" — Yeremia 29:11\n\nAmini katika wakati Wake. Kusudi Lake kwa maisha yako bado halikukamilika.",
+    "Hiyo ni swali linaloistahili kukaa nalo. Katika mapokeo ya Anglikana, tunashikilia kwamba Mungu anakutana nasi si tu katika vilele vya ibada, bali pia katika bonde la maswali ya uaminifu.\n\n\"Mwambie wasiwasi wako wote, kwa maana anajali ninyi.\" — 1 Petro 5:7\n\nUnataka nikusalikie katika hali yako?",
+    "Hii iko moyoni mwa anachotutaka imani. Acha nishiriki wazo kutoka maandikoni, kisha ningependa kusikia zaidi kuhusu unachobeba:\n\n\"Njooni kwangu, ninyi nyote msumbukao na wenziwao mzigo, nami nitawapumzisha.\" — Mathayo 11:28\n\nKitu kizito zaidi unachobeba sasa hivi ni nini?",
+    "Maandiko yanazungumza wazi na kwa upole kuhusu jambo hili. Nataka kukupa jibu la makini — unaweza kunieleza zaidi kidogo kuhusu hali yako ili niweze kukutembea nawe kwa karibu zaidi kupitia hali hiyo?"
+  ]
+};
+let respIdx = 0;
+
+function useHint(btn){
+  document.getElementById('chat-input').value = btn.textContent.trim();
+  document.getElementById('chat-input').focus();
+}
+
+function escapeHtml(text){
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function sendMessage(){
   const input = document.getElementById('chat-input');
   const text = input.value.trim();
-  if (!text) return;
-  const messages = document.getElementById('chat-messages');
+  if(!text) return;
+  const msgs = document.getElementById('chat-messages');
 
   // User bubble
   const u = document.createElement('div');
   u.className = 'msg user';
-  u.innerHTML = `<div class="msg-avatar" style="background:rgba(200,169,110,0.12)">U</div><div><div class="msg-bubble" style="border-top-color:rgba(200,169,110,0.3)"><div class="msg-text">${text}</div></div></div>`;
-  messages.appendChild(u);
+  u.innerHTML = `<div class="msg-avatar" style="background:rgba(200,169,110,0.12)">U</div><div><div class="msg-bubble" style="border-top:1px solid rgba(200,169,110,0.3)"><div class="msg-text">${escapeHtml(text)}</div></div></div>`;
+  msgs.appendChild(u);
   input.value = '';
   input.style.height = 'auto';
 
-  // Typing
+  // Typing indicator
   const t = document.createElement('div');
-  t.className = 'msg ai'; t.id = 'typing';
-  t.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div style="display:flex;gap:4px;padding:0.2rem 0">${[0,1,2].map(i=>`<span style="width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.6;animation:pulse 1.2s ease-in-out ${i*0.2}s infinite;display:inline-block"></span>`).join('')}</div></div></div>`;
-  messages.appendChild(t);
-  messages.scrollTop = messages.scrollHeight;
+  t.className = 'msg ai';
+  t.id = 'nuru-typing';
+  t.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div style="display:flex;gap:5px;align-items:center;padding:0.2rem 0">${[0,1,2].map(i=>`<span style="width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.6;animation:pulse 1.3s ease-in-out ${i*0.22}s infinite;display:inline-block"></span>`).join('')}</div></div></div>`;
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
 
   setTimeout(() => {
-    t.remove();
-    const reply = RESPONSES[lang][idx % RESPONSES[lang].length]; idx++;
+    const ty = document.getElementById('nuru-typing');
+    if(ty) ty.remove();
+    const reply = RESPONSES[lang][respIdx % RESPONSES[lang].length];
+    respIdx++;
     const a = document.createElement('div');
     a.className = 'msg ai';
-    a.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div class="msg-text">${reply}</div></div></div>`;
-    messages.appendChild(a);
-    messages.scrollTop = messages.scrollHeight;
-  }, 1800);
+    a.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div class="msg-text">${escapeHtml(reply)}</div></div></div>`;
+    msgs.appendChild(a);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 2000);
 }
 
 document.getElementById('chat-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
 });
-document.getElementById('chat-input').addEventListener('input', function() {
+document.getElementById('chat-input').addEventListener('input', function(){
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 100) + 'px';
 });
