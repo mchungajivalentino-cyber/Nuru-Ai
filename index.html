@@ -1,89 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NURU AI Landing Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Jost&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Jost', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(90deg, #8B8000, #DAA520);
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3em;
-            color: white;
-        }
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 2s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .denomination {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px;
-        }
-        .chat-interface {
-            width: 300px;
-            height: 500px;
-            border: 1px solid #DAA520;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .features {
-            background-color: #fff;
-            padding: 20px;
-        }
-        footer {
-            background-color: #8B8000;
-            text-align: center;
-            padding: 10px;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NURU AI — Mwongozo wa Kiroho</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#C8A96E;--gold-light:#E2C990;--charcoal:#1C1A17;--ivory:#FAF7F2;--muted:#7A6E5F;--border:rgba(200,169,110,0.25)}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--charcoal);color:var(--ivory);min-height:100vh;overflow-x:hidden;font-weight:300}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;background:rgba(28,26,23,0.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase}
+.nav-logo span{color:var(--ivory);font-weight:300}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.lang-toggle{display:flex;border:1px solid var(--border);overflow:hidden}
+.lang-btn{padding:0.35rem 0.9rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;border:none;background:transparent;color:var(--muted);transition:all 0.2s}
+.lang-btn.active{background:var(--gold);color:var(--charcoal)}
+.nav-cta{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.4rem 1.2rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.nav-cta:hover{background:var(--gold);color:var(--charcoal)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 1.5rem 4rem;position:relative;overflow:hidden;background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(200,169,110,0.09) 0%,transparent 70%)}
+.hero-line{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:1px;height:70px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0.5}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;animation:fadeUp 0.8s ease both 0.2s;opacity:0}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,8vw,6rem);font-weight:300;line-height:1.05;color:var(--ivory);animation:fadeUp 0.8s ease both 0.35s;opacity:0}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{margin-top:1.5rem;max-width:500px;font-size:0.92rem;font-weight:300;line-height:1.8;color:var(--muted);animation:fadeUp 0.8s ease both 0.5s;opacity:0}
+.hero-actions{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.8s ease both 0.65s;opacity:0}
+.btn-primary{background:var(--gold);color:var(--charcoal);border:none;padding:0.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--ivory);border:1px solid rgba(250,247,242,0.2);padding:0.85rem 2.2rem;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.14em;text-transform:uppercase;cursor:pointer;transition:all 0.25s}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+.section{padding:5rem 1.5rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--ivory);margin-bottom:2.5rem}
+.modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--border)}
+.mode-card{background:var(--charcoal);padding:2rem 1.5rem;cursor:pointer;transition:background 0.25s;border-bottom:2px solid transparent}
+.mode-card:hover{background:rgba(200,169,110,0.07);border-bottom-color:var(--gold)}
+.mode-icon{font-size:1.4rem;margin-bottom:0.8rem}
+.mode-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--ivory);margin-bottom:0.4rem}
+.mode-desc{font-size:0.76rem;color:var(--muted);line-height:1.65}
+.chat-section{padding:5rem 1.5rem;background:linear-gradient(180deg,var(--charcoal) 0%,#161410 100%)}
+.chat-wrapper{max-width:860px;margin:0 auto;border:1px solid var(--border);display:flex;flex-direction:column}
+.chat-topbar{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.2rem;border-bottom:1px solid var(--border);background:#141210}
+.chat-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ivory)}
+.chat-status{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#7EC8A0;animation:pulse 2s infinite}
+.chat-messages{padding:1.5rem 1.2rem;display:flex;flex-direction:column;gap:1.2rem;min-height:200px;max-height:380px;overflow-y:auto}
+.msg{display:flex;gap:0.7rem;max-width:85%}
+.msg.ai{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:30px;height:30px;flex-shrink:0;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.75rem;background:rgba(200,169,110,0.06);color:var(--gold)}
+.msg-bubble{padding:0.85rem 1rem;border:1px solid var(--border);background:rgba(200,169,110,0.04);border-top:1px solid rgba(200,169,110,0.4)}
+.msg.user .msg-bubble{background:rgba(200,169,110,0.09);border-color:rgba(200,169,110,0.3);border-top-color:rgba(200,169,110,0.3)}
+.msg-text{font-size:0.87rem;line-height:1.75;color:var(--ivory);font-weight:300;white-space:pre-wrap}
+.msg-verse{margin-top:0.7rem;padding:0.6rem 0.8rem;border-left:2px solid var(--gold);background:rgba(200,169,110,0.06)}
+.msg-verse-text{font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:var(--gold-light);line-height:1.6}
+.msg-verse-ref{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:0.2rem}
+.chat-input-area{padding:1rem 1.2rem;border-top:1px solid var(--border);background:#141210}
+.chat-hints{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.6rem}
+.hint{font-size:0.65rem;padding:0.25rem 0.65rem;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all 0.2s;background:none;font-family:'Jost',sans-serif}
+.hint:hover{border-color:var(--gold);color:var(--gold)}
+.chat-input-row{display:flex;gap:0.6rem;align-items:flex-end}
+.chat-input{flex:1;background:rgba(250,247,242,0.04);border:1px solid var(--border);color:var(--ivory);padding:0.65rem 0.9rem;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;resize:none;outline:none;min-height:40px}
+.chat-input::placeholder{color:var(--muted)}
+.chat-send{background:var(--gold);border:none;width:40px;height:40px;flex-shrink:0;cursor:pointer;color:var(--charcoal);font-size:1rem;transition:background 0.2s}
+.chat-send:hover{background:var(--gold-light)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
+.feature{border-top:1px solid var(--border);padding-top:1.3rem}
+.feature-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:rgba(200,169,110,0.2);font-weight:300;line-height:1;margin-bottom:0.6rem}
+.feature-title{font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ivory);margin-bottom:0.5rem}
+.feature-desc{font-size:0.8rem;color:var(--muted);line-height:1.7}
+.cta{padding:7rem 1.5rem;text-align:center;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(200,169,110,0.06),transparent 70%)}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--ivory);margin-bottom:1rem}
+.cta-sub{font-size:0.88rem;color:var(--muted);margin-bottom:2.5rem}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;font-size:0.7rem;color:var(--muted);flex-wrap:wrap;gap:0.5rem}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--charcoal)}::-webkit-scrollbar-thumb{background:var(--border)}
+</style>
 </head>
 <body>
-    <header>
-        <h1>NURU AI</h1>
-    </header>
-    <div class="hero">
-        <h2>Welcome to NURU AI</h2>
+
+<nav>
+  <div class="nav-logo">NURU <span>AI</span></div>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('sw',this)">SW</button>
     </div>
-    <div class="denomination">
-        <div>General Christian</div>
-        <div>Catholic</div>
-        <div>Anglican</div>
-        <div>Lutheran</div>
-        <div>Counseling</div>
+    <button class="nav-cta" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Begin" data-sw="Anza">Begin</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-line"></div>
+  <p class="hero-eyebrow" data-en="Spiritual Intelligence Platform" data-sw="Jukwaa la Akili ya Kiroho">Spiritual Intelligence Platform</p>
+  <h1 class="hero-title">
+    <span data-en="Wisdom for the" data-sw="Hekima kwa">Wisdom for the</span><br>
+    <em data-en="Modern Believer" data-sw="Mwamini wa Kisasa">Modern Believer</em>
+  </h1>
+  <p class="hero-sub" data-en="NURU AI offers theologically grounded guidance, denomination-aware counsel, and scripture-rooted wisdom — available to all who seek." data-sw="NURU AI inatoa mwongozo wa kiteolojia, ushauri unaozingatia madhehebu, na hekima ya maandiko — kwa kila anayetafuta.">NURU AI offers theologically grounded guidance, denomination-aware counsel, and scripture-rooted wisdom — available to all who seek.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Start Conversation" data-sw="Anza Mazungumzo">Start Conversation</button>
+    <button class="btn-secondary" onclick="document.getElementById('modes').scrollIntoView({behavior:'smooth'})" data-en="Choose Denomination" data-sw="Chagua Dhehebu">Choose Denomination</button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div id="modes">
+<div class="section">
+  <p class="section-label" data-en="Choose Your Path" data-sw="Chagua Njia Yako">Choose Your Path</p>
+  <h2 class="section-title" data-en="Select a Denomination Mode" data-sw="Chagua Hali ya Dhehebu">Select a Denomination Mode</h2>
+  <div class="modes-grid">
+    <div class="mode-card"><div class="mode-icon">✝️</div><div class="mode-name" data-en="General Christian" data-sw="Mkristo wa Jumla">General Christian</div><div class="mode-desc" data-en="Broad guidance rooted in core Christian doctrine and scripture." data-sw="Mwongozo mpana unaozingatia mafundisho ya msingi ya Kikristo.">Broad guidance rooted in core Christian doctrine and scripture.</div></div>
+    <div class="mode-card"><div class="mode-icon">⛪</div><div class="mode-name" data-en="Catholic" data-sw="Katoliki">Catholic</div><div class="mode-desc" data-en="Guided by the Catechism, papal teaching, and sacramental theology." data-sw="Inaongozwa na Katekisimu, mafundisho ya Papa, na teolojia ya sakramenti.">Guided by the Catechism, papal teaching, and sacramental theology.</div></div>
+    <div class="mode-card"><div class="mode-icon">📖</div><div class="mode-name" data-en="Anglican" data-sw="Anglikana">Anglican</div><div class="mode-desc" data-en="Rooted in Scripture, Tradition, and Reason via the Book of Common Prayer." data-sw="Imejengwa juu ya Maandiko, Mapokeo, na Akili kupitia Kitabu cha Sala.">Rooted in Scripture, Tradition, and Reason via the Book of Common Prayer.</div></div>
+    <div class="mode-card"><div class="mode-icon">🕊️</div><div class="mode-name" data-en="Lutheran" data-sw="Kilutheri">Lutheran</div><div class="mode-desc" data-en="Grounded in the Reformation tradition, grace-centred and Confessional." data-sw="Imejengwa katika mapokeo ya Matengenezo, inayozingatia neema.">Grounded in the Reformation tradition, grace-centred and Confessional.</div></div>
+    <div class="mode-card"><div class="mode-icon">💬</div><div class="mode-name" data-en="Counseling" data-sw="Ushauri">Counseling</div><div class="mode-desc" data-en="Spiritual support for life's most difficult seasons." data-sw="Msaada wa kiroho kwa nyakati ngumu zaidi za maisha.">Spiritual support for life's most difficult seasons.</div></div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="chat-section" id="chat-section">
+  <div style="max-width:860px;margin:0 auto 2rem">
+    <p class="section-label" data-en="Chat Interface" data-sw="Kiolesura cha Mazungumzo">Chat Interface</p>
+    <h2 class="section-title" data-en="Speak with NURU AI" data-sw="Zungumza na NURU AI">Speak with NURU AI</h2>
+  </div>
+  <div class="chat-wrapper">
+    <div class="chat-topbar">
+      <div class="chat-name">NURU — <span data-en="Spiritual Guide" data-sw="Mwongozo wa Kiroho">Spiritual Guide</span></div>
+      <div class="chat-status"><span class="status-dot"></span><span data-en="Online & Ready" data-sw="Mtandaoni & Tayari">Online & Ready</span></div>
     </div>
-    <div class="chat-interface">
-        <p>Chat preview here...</p>
+    <div class="chat-messages" id="chat-messages">
+      <div class="msg ai">
+        <div class="msg-avatar">✝</div>
+        <div><div class="msg-bubble">
+          <div class="msg-text" id="welcome-msg">Peace be with you. I am NURU — your AI spiritual companion. How may I serve you today?</div>
+          <div class="msg-verse">
+            <div class="msg-verse-text" id="verse-text">"The Lord is my shepherd; I shall not want."</div>
+            <div class="msg-verse-ref">Psalm 23:1</div>
+          </div>
+        </div></div>
+      </div>
     </div>
-    <div class="features">
-        <h3>Features</h3>
-        <p>Feature 1: AI Support</p>
-        <p>Feature 2: Community Engagement</p>
-        <p>Feature 3: Resource Access</p>
+    <div class="chat-input-area">
+      <div class="chat-hints" id="hints-container">
+        <button class="hint" onclick="fillInput(this)" data-en="Give me today's scripture" data-sw="Nipe andiko la leo">Give me today's scripture</button>
+        <button class="hint" onclick="fillInput(this)" data-en="Help me with prayer" data-sw="Nisaidie na sala">Help me with prayer</button>
+        <button class="hint" onclick="fillInput(this)" data-en="Draft a Sunday sermon" data-sw="Andika mahubiri ya Jumapili">Draft a Sunday sermon</button>
+        <button class="hint" onclick="fillInput(this)" data-en="I need spiritual counsel" data-sw="Nahitaji ushauri wa kiroho">I need spiritual counsel</button>
+      </div>
+      <div class="chat-input-row">
+        <textarea class="chat-input" id="chat-input" rows="1" placeholder="Ask anything in faith…"></textarea>
+        <button class="chat-send" onclick="sendMessage()">➤</button>
+      </div>
     </div>
-    <footer>
-        <p>&copy; 2026 NURU AI. All rights reserved.</p>
-    </footer>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <p class="section-label" data-en="Platform Capabilities" data-sw="Uwezo wa Jukwaa">Platform Capabilities</p>
+  <h2 class="section-title" data-en="Built for Depth, Designed for Clarity" data-sw="Imejengwa kwa Kina, Imeundwa kwa Uwazi">Built for Depth, Designed for Clarity</h2>
+  <div class="features-grid">
+    <div class="feature"><div class="feature-num">01</div><div class="feature-title" data-en="Theological Accuracy" data-sw="Usahihi wa Kiteolojia">Theological Accuracy</div><div class="feature-desc" data-en="Each denomination module draws from verified doctrinal sources." data-sw="Kila moduli ya dhehebu inachota kutoka vyanzo vya mafundisho vilivyothibitishwa.">Each denomination module draws from verified doctrinal sources.</div></div>
+    <div class="feature"><div class="feature-num">02</div><div class="feature-title" data-en="Sermon Generator" data-sw="Kitengo cha Mahubiri">Sermon Generator</div><div class="feature-desc" data-en="Generate complete sermon outlines grounded in scripture." data-sw="Tengeneza muhtasari kamili wa mahubiri unaozingatia maandiko.">Generate complete sermon outlines grounded in scripture.</div></div>
+    <div class="feature"><div class="feature-num">03</div><div class="feature-title" data-en="Pastoral Counseling" data-sw="Ushauri wa Kichungaji">Pastoral Counseling</div><div class="feature-desc" data-en="Spiritual support for marriage, grief, doubt, and anxiety." data-sw="Msaada wa kiroho kwa ndoa, huzuni, mashaka, na wasiwasi.">Spiritual support for marriage, grief, doubt, and anxiety.</div></div>
+    <div class="feature"><div class="feature-num">04</div><div class="feature-title" data-en="Scripture Discovery" data-sw="Ugunduzi wa Maandiko">Scripture Discovery</div><div class="feature-desc" data-en="Contextual scripture recommendations for your spiritual need." data-sw="Mapendekezo ya maandiko yanayofaa hali yako ya kiroho.">Contextual scripture recommendations for your spiritual need.</div></div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2 class="cta-title" data-en="Begin Your Spiritual Journey" data-sw="Anza Safari Yako ya Kiroho">Begin Your Spiritual Journey</h2>
+  <p class="cta-sub" data-en="Africa's first structured Spiritual AI platform — built with reverence, precision, and purpose." data-sw="Jukwaa la kwanza la AI ya Kiroho barani Afrika — lililojengwa kwa heshima, usahihi, na kusudi.">Africa's first structured Spiritual AI platform — built with reverence, precision, and purpose.</p>
+  <button class="btn-primary" onclick="document.getElementById('chat-section').scrollIntoView({behavior:'smooth'})" data-en="Start a Conversation" data-sw="Anza Mazungumzo">Start a Conversation</button>
+</div>
+
+<footer>
+  <span class="footer-logo">NURU AI</span>
+  <span data-en="Spiritual Intelligence Platform · v1.0" data-sw="Jukwaa la Akili ya Kiroho · Toleo 1.0">Spiritual Intelligence Platform · v1.0</span>
+  <span data-en="Built with reverence & purpose" data-sw="Imejengwa kwa heshima na kusudi">Built with reverence & purpose</span>
+</footer>
+
+<script>
+let lang = 'en';
+const WELCOME = {
+  en:"Peace be with you. I am NURU — your AI spiritual companion. How may I serve you today?",
+  sw:"Amani iwe nawe. Mimi ni NURU — msaidizi wako wa kiroho wa AI. Naweza kukusaidia nini leo?"
+};
+const VERSE = {
+  en:'"The Lord is my shepherd; I shall not want."',
+  sw:'"Bwana ni mchungaji wangu; sitapungukiwa na kitu."'
+};
+const PLACEHOLDER = {
+  en:"Ask anything in faith…",
+  sw:"Uliza chochote kwa imani…"
+};
+const RESPONSES = {
+  en:[
+    "Peace be with you. Scripture reminds us:\n\n\"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you.\" — Jeremiah 29:11\n\nTrust in His timing and His purpose for your life.",
+    "That is a beautiful question of faith. Cast all your anxiety on Him, because He cares for you. — 1 Peter 5:7\n\nWould you like me to offer a prayer for your situation?",
+    "The Scriptures speak clearly on this matter. Let us explore it together with wisdom and an open heart. God meets us where we are.",
+    "In the Christian tradition, we are reminded that God's grace is sufficient for every need. His strength is made perfect in our weakness. — 2 Corinthians 12:9"
+  ],
+  sw:[
+    "Amani iwe nawe. Maandiko yanakumbusha:\n\n\"Kwa maana najua mawazo ninayowaza ninyi, asema Bwana, mawazo ya amani wala si ya mabaya.\" — Yeremia 29:11\n\nAmini katika wakati Wake na kusudi Lake kwa maisha yako.",
+    "Hiyo ni swali zuri la imani. Mwambie wasiwasi wako wote, kwa maana anajali. — 1 Petro 5:7\n\nUnataka nikusalikie katika hali yako?",
+    "Maandiko yanazungumza wazi juu ya jambo hili. Tulichunguze pamoja kwa hekima na moyo wazi. Mungu anakutana nasi mahali tulipo.",
+    "Katika mapokeo ya Kikristo, tunakumbushwa kwamba neema ya Mungu inatosha kwa kila haja. Nguvu Zake zinakamilika katika udhaifu wetu. — 2 Wakorintho 12:9"
+  ]
+};
+let idx = 0;
+
+function setLang(l, btn) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.textContent = el.dataset[l] || el.dataset.en;
+  });
+  document.getElementById('chat-input').placeholder = PLACEHOLDER[l];
+  document.getElementById('welcome-msg').textContent = WELCOME[l];
+  document.getElementById('verse-text').textContent = VERSE[l];
+}
+
+function fillInput(btn) {
+  document.getElementById('chat-input').value = btn.textContent;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const messages = document.getElementById('chat-messages');
+
+  // User bubble
+  const u = document.createElement('div');
+  u.className = 'msg user';
+  u.innerHTML = `<div class="msg-avatar" style="background:rgba(200,169,110,0.12)">U</div><div><div class="msg-bubble" style="border-top-color:rgba(200,169,110,0.3)"><div class="msg-text">${text}</div></div></div>`;
+  messages.appendChild(u);
+  input.value = '';
+  input.style.height = 'auto';
+
+  // Typing
+  const t = document.createElement('div');
+  t.className = 'msg ai'; t.id = 'typing';
+  t.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div style="display:flex;gap:4px;padding:0.2rem 0">${[0,1,2].map(i=>`<span style="width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.6;animation:pulse 1.2s ease-in-out ${i*0.2}s infinite;display:inline-block"></span>`).join('')}</div></div></div>`;
+  messages.appendChild(t);
+  messages.scrollTop = messages.scrollHeight;
+
+  setTimeout(() => {
+    t.remove();
+    const reply = RESPONSES[lang][idx % RESPONSES[lang].length]; idx++;
+    const a = document.createElement('div');
+    a.className = 'msg ai';
+    a.innerHTML = `<div class="msg-avatar">✝</div><div><div class="msg-bubble"><div class="msg-text">${reply}</div></div></div>`;
+    messages.appendChild(a);
+    messages.scrollTop = messages.scrollHeight;
+  }, 1800);
+}
+
+document.getElementById('chat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+document.getElementById('chat-input').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+</script>
 </body>
 </html>
