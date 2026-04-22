@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NURU AI — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C8A96E;--gold-light:#E2C990;--gold-dim:rgba(200,169,110,0.12);
+  --charcoal:#1C1A17;--deep:#0F0E0C;--surface:#141210;--surface2:#1A1814;
+  --ivory:#FAF7F2;--muted:#7A6E5F;--border:rgba(200,169,110,0.2);
+  --green:#6BAE8C;--red:#C47A6B;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--deep);color:var(--ivory);min-height:100vh;font-weight:300;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--deep)}::-webkit-scrollbar-thumb{background:var(--border)}
+
+/* ── LOGIN ── */
+.login-screen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:2rem;
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(200,169,110,0.06),transparent 70%)
+}
+.login-box{
+  width:100%;max-width:380px;
+  border:1px solid var(--border);
+  background:var(--surface);padding:2.5rem 2rem;
+}
+.login-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:600;letter-spacing:0.12em;
+  color:var(--gold);text-transform:uppercase;
+  text-align:center;margin-bottom:0.3rem;
+}
+.login-logo span{color:var(--ivory);font-weight:300}
+.login-sub{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:2rem}
+.login-label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;display:block}
+.login-input{
+  width:100%;background:rgba(250,247,242,0.04);
+  border:1px solid var(--border);color:var(--ivory);
+  padding:0.75rem 1rem;font-family:'Jost',sans-serif;
+  font-size:0.9rem;outline:none;transition:border-color 0.2s;
+  margin-bottom:1.2rem;
+}
+.login-input:focus{border-color:rgba(200,169,110,0.5)}
+.login-btn{
+  width:100%;background:var(--gold);color:var(--charcoal);
+  border:none;padding:0.85rem;font-family:'Jost',sans-serif;
+  font-size:0.8rem;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.2s;
+}
+.login-btn:hover{background:var(--gold-light)}
+.login-error{
+  color:var(--red);font-size:0.75rem;text-align:center;
+  margin-top:0.8rem;display:none;
+}
+
+/* ── ADMIN LAYOUT ── */
+.admin-screen{display:none}
+.admin-layout{display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{
+  width:220px;min-width:220px;background:var(--surface);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;z-index:100;
+}
+.sidebar-logo{
+  padding:1.3rem 1.2rem;border-bottom:1px solid var(--border);
+  font-family:'Cormorant Garamond',serif;font-size:1.2rem;
+  font-weight:600;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;
+}
+.sidebar-logo span{color:var(--ivory);font-weight:300}
+.sidebar-badge{
+  font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-top:0.15rem;
+}
+.sidebar-nav{padding:1rem 0.5rem;flex:1}
+.nav-section-label{
+  font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--muted);padding:0 0.7rem;margin:1rem 0 0.3rem;display:block;
+}
+.nav-btn{
+  display:flex;align-items:center;gap:0.6rem;
+  width:100%;padding:0.55rem 0.7rem;
+  font-size:0.78rem;color:var(--muted);
+  background:none;border:none;border-left:2px solid transparent;
+  cursor:pointer;font-family:'Jost',sans-serif;
+  letter-spacing:0.03em;transition:all 0.15s;text-align:left;
+}
+.nav-btn:hover{color:var(--ivory);background:rgba(200,169,110,0.04)}
+.nav-btn.active{color:var(--gold);background:rgba(200,169,110,0.08);border-left-color:var(--gold)}
+.nav-btn .icon{font-size:0.9rem;width:16px;text-align:center;flex-shrink:0}
+.sidebar-footer{
+  padding:0.9rem 1.2rem;border-top:1px solid var(--border);
+}
+.logout-btn{
+  width:100%;background:transparent;border:1px solid var(--border);
+  color:var(--muted);padding:0.4rem;font-family:'Jost',sans-serif;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;
+}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* Main */
+.main{margin-left:220px;flex:1;display:flex;flex-direction:column}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.9rem 2rem;border-bottom:1px solid var(--border);
+  background:var(--surface);position:sticky;top:0;z-index:50;
+}
+.page-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:400;color:var(--ivory);
+}
+.topbar-info{font-size:0.68rem;color:var(--muted);letter-spacing:0.06em}
+
+.content{padding:2rem;flex:1}
+
+/* ── PANELS ── */
+.panel{display:none}
+.panel.active{display:block}
+
+/* ── DASHBOARD ── */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--border);margin-bottom:2rem}
+.dash-card{background:var(--charcoal);padding:1.4rem 1.2rem;border-top:2px solid rgba(200,169,110,0.3)}
+.dash-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold);line-height:1}
+.dash-label{font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+.dash-recent{background:var(--charcoal);border:1px solid var(--border);margin-bottom:1.5rem}
+.dash-recent-header{padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold)}
+.dash-item{padding:0.8rem 1.2rem;border-bottom:1px solid rgba(200,169,110,0.07);display:flex;align-items:center;justify-content:space-between;font-size:0.8rem}
+.dash-item:last-child{border-bottom:none}
+.dash-item-title{color:var(--ivory)}
+.dash-item-meta{color:var(--muted);font-size:0.68rem}
+
+/* ── FORM STYLES ── */
+.form-section{max-width:760px}
+.form-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:300;color:var(--ivory);
+  margin-bottom:1.5rem;padding-bottom:1rem;
+  border-bottom:1px solid var(--border);
+}
+.form-group{margin-bottom:1.3rem}
+.form-label{
+  display:block;font-size:0.66rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.45rem;
+}
+.form-input,.form-textarea,.form-select{
+  width:100%;background:rgba(250,247,242,0.04);
+  border:1px solid var(--border);color:var(--ivory);
+  padding:0.7rem 0.9rem;font-family:'Jost',sans-serif;
+  font-size:0.88rem;font-weight:300;outline:none;
+  transition:border-color 0.2s;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:rgba(200,169,110,0.5)}
+.form-textarea{resize:vertical;min-height:140px;line-height:1.65}
+.form-select option{background:var(--charcoal);color:var(--ivory)}
+.form-select{cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-hint{font-size:0.7rem;color:var(--muted);margin-top:0.3rem;line-height:1.5}
+
+/* Rich text toolbar */
+.editor-toolbar{
+  display:flex;gap:0.3rem;flex-wrap:wrap;
+  padding:0.5rem;background:rgba(200,169,110,0.05);
+  border:1px solid var(--border);border-bottom:none;
+}
+.tb-btn{
+  background:none;border:1px solid var(--border);
+  color:var(--muted);padding:0.25rem 0.55rem;
+  font-size:0.72rem;cursor:pointer;font-family:'Jost',sans-serif;
+  transition:all 0.15s;
+}
+.tb-btn:hover{border-color:var(--gold);color:var(--gold)}
+.editor-area{
+  width:100%;min-height:220px;
+  background:rgba(250,247,242,0.04);
+  border:1px solid var(--border);color:var(--ivory);
+  padding:0.9rem;font-family:'Jost',sans-serif;
+  font-size:0.88rem;font-weight:300;outline:none;
+  line-height:1.75;resize:vertical;
+}
+.editor-area:focus{border-color:rgba(200,169,110,0.5)}
+
+/* Form buttons */
+.form-actions{display:flex;gap:0.8rem;margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid var(--border)}
+.btn-save{
+  background:var(--gold);color:var(--charcoal);border:none;
+  padding:0.75rem 2rem;font-family:'Jost',sans-serif;
+  font-size:0.78rem;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.2s;
+}
+.btn-save:hover{background:var(--gold-light)}
+.btn-draft{
+  background:transparent;color:var(--muted);
+  border:1px solid var(--border);padding:0.75rem 1.5rem;
+  font-family:'Jost',sans-serif;font-size:0.78rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-draft:hover{border-color:var(--gold);color:var(--gold)}
+.btn-danger{
+  background:transparent;color:var(--red);
+  border:1px solid rgba(196,122,107,0.3);padding:0.75rem 1.5rem;
+  font-family:'Jost',sans-serif;font-size:0.78rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;margin-left:auto;
+}
+.btn-danger:hover{background:rgba(196,122,107,0.1)}
+
+/* ── CONTENT LIST ── */
+.list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.list-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--ivory)}
+.btn-new{
+  background:var(--gold);color:var(--charcoal);border:none;
+  padding:0.55rem 1.3rem;font-family:'Jost',sans-serif;
+  font-size:0.74rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;cursor:pointer;transition:background 0.2s;
+}
+.btn-new:hover{background:var(--gold-light)}
+.content-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.content-table thead tr{border-bottom:1px solid var(--border)}
+.content-table th{
+  text-align:left;padding:0.6rem 0.8rem;
+  font-size:0.62rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;
+}
+.content-table tbody tr{
+  border-bottom:1px solid rgba(200,169,110,0.07);
+  transition:background 0.15s;
+}
+.content-table tbody tr:hover{background:rgba(200,169,110,0.03)}
+.content-table td{padding:0.75rem 0.8rem;color:var(--ivory);font-weight:300}
+.status-badge{
+  display:inline-block;padding:0.15rem 0.55rem;
+  font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
+  border-radius:2px;
+}
+.status-published{background:rgba(107,174,140,0.15);color:var(--green);border:1px solid rgba(107,174,140,0.2)}
+.status-draft{background:rgba(200,169,110,0.1);color:var(--gold);border:1px solid var(--border)}
+.action-link{
+  background:none;border:none;color:var(--muted);
+  cursor:pointer;font-size:0.72rem;font-family:'Jost',sans-serif;
+  padding:0.15rem 0.35rem;transition:color 0.15s;
+}
+.action-link:hover{color:var(--gold)}
+.action-link.del:hover{color:var(--red)}
+
+/* Toast notification */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:1000;
+  background:var(--surface);border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  padding:0.9rem 1.4rem;
+  font-size:0.82rem;color:var(--ivory);
+  transform:translateY(100px);opacity:0;
+  transition:all 0.3s ease;pointer-events:none;
+  max-width:320px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.error{border-left-color:var(--red)}
+
+/* Empty state */
+.empty-state{
+  text-align:center;padding:4rem 2rem;
+  border:1px solid var(--border);background:var(--charcoal);
+}
+.empty-icon{font-size:2.5rem;margin-bottom:1rem;opacity:0.5}
+.empty-text{font-size:0.88rem;color:var(--muted);margin-bottom:1.2rem}
+
+/* Preview pane */
+.preview-box{
+  background:var(--charcoal);border:1px solid var(--border);
+  padding:1.5rem;margin-top:1.5rem;
+}
+.preview-label{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem}
+.preview-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--ivory);margin-bottom:0.5rem}
+.preview-body{font-size:0.85rem;color:var(--muted);line-height:1.75;white-space:pre-wrap}
+
+/* Instructions */
+.info-box{
+  background:rgba(200,169,110,0.05);border:1px solid var(--border);
+  border-left:2px solid var(--gold);padding:1rem 1.2rem;
+  margin-bottom:1.5rem;font-size:0.8rem;color:var(--muted);line-height:1.7;
+}
+.info-box strong{color:var(--ivory)}
+
+/* Mobile */
+@media(max-width:700px){
+  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap}
+  .main{margin-left:0}
+  .form-row{grid-template-columns:1fr}
+  .sidebar-nav{display:flex;flex-wrap:wrap;padding:0.5rem}
+  .nav-btn{width:auto;border-left:none;border-bottom:2px solid transparent}
+  .nav-btn.active{border-bottom-color:var(--gold);border-left:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">NURU <span>AI</span></div>
+    <div class="login-sub">Admin Panel · Restricted Access</div>
+    <label class="login-label">Password</label>
+    <input class="login-input" type="password" id="loginPass" placeholder="Enter admin password…" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Enter Admin Panel</button>
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ── ADMIN SCREEN ── -->
+<div class="admin-screen" id="adminScreen">
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        NURU <span>AI</span>
+        <span class="sidebar-badge">Content Manager</span>
+      </div>
+      <nav class="sidebar-nav">
+        <span class="nav-section-label">Overview</span>
+        <button class="nav-btn active" onclick="showPanel('dashboard',this)">
+          <span class="icon">◈</span> Dashboard
+        </button>
+
+        <span class="nav-section-label">Content</span>
+        <button class="nav-btn" onclick="showPanel('articles',this)">
+          <span class="icon">📝</span> Articles
+        </button>
+        <button class="nav-btn" onclick="showPanel('audio',this)">
+          <span class="icon">🎵</span> Audio
+        </button>
+        <button class="nav-btn" onclick="showPanel('video',this)">
+          <span class="icon">🎬</span> Video
+        </button>
+
+        <span class="nav-section-label">Shop</span>
+        <button class="nav-btn" onclick="showPanel('books',this)">
+          <span class="icon">📚</span> Books
+        </button>
+
+        <span class="nav-section-label">Site</span>
+        <button class="nav-btn" onclick="showPanel('preview',this)">
+          <span class="icon">◉</span> Preview Content
+        </button>
+        <button class="nav-btn" onclick="showPanel('export',this)">
+          <span class="icon">↓</span> Export to Website
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()">🔒 Log Out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="topbar">
+        <div class="page-title" id="pageTitle">Dashboard</div>
+        <div class="topbar-info" id="topbarDate"></div>
+      </div>
+
+      <div class="content">
+
+        <!-- ── DASHBOARD ── -->
+        <div class="panel active" id="panel-dashboard">
+          <div class="dash-grid">
+            <div class="dash-card">
+              <div class="dash-num" id="stat-articles">0</div>
+              <div class="dash-label">Articles</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-num" id="stat-audio">0</div>
+              <div class="dash-label">Audio Messages</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-num" id="stat-video">0</div>
+              <div class="dash-label">Video Sermons</div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-num" id="stat-books">0</div>
+              <div class="dash-label">Books</div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <strong>Karibu, Mchungaji Valentino.</strong><br>
+            Hapa unaweza kuandika makala, kuongeza vitabu, na kusimamia maudhui yote ya tovuti yako.
+            Baada ya kuandika, bonyeza <strong>"Export to Website"</strong> kupakua faili mpya ya tovuti na maudhui yako.
+          </div>
+
+          <div class="dash-recent">
+            <div class="dash-recent-header">Recent Content</div>
+            <div id="dash-recent-list">
+              <div class="dash-item" style="color:var(--muted);font-size:0.78rem">No content yet. Start by writing your first article.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ARTICLES ── -->
+        <div class="panel" id="panel-articles">
+          <div id="articles-list-view">
+            <div class="list-header">
+              <div class="list-title">Articles</div>
+              <button class="btn-new" onclick="showArticleForm()">+ New Article</button>
+            </div>
+            <div id="articles-table-wrap">
+              <div class="empty-state">
+                <div class="empty-icon">📝</div>
+                <div class="empty-text">No articles yet. Write your first teaching.</div>
+                <button class="btn-new" onclick="showArticleForm()">Write First Article</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="article-form-view" style="display:none">
+            <div class="form-section">
+              <div class="form-title" id="article-form-title">New Article</div>
+
+              <div class="form-group">
+                <label class="form-label">Title (English)</label>
+                <input class="form-input" id="art-title-en" placeholder="e.g. When the Shepherd Is Weary"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kichwa (Kiswahili)</label>
+                <input class="form-input" id="art-title-sw" placeholder="mfano: Wakati Mchungaji Amechoka"/>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Category</label>
+                  <select class="form-select" id="art-category">
+                    <option value="faith">Faith & Scripture</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="counseling">Pastoral Counseling</option>
+                    <option value="devotional">Devotional</option>
+                    <option value="sermon">Sermon Notes</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="art-status">
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Short Description (English) — shown in article list</label>
+                <input class="form-input" id="art-desc-en" placeholder="One or two sentences about this article…"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Maelezo Mafupi (Kiswahili)</label>
+                <input class="form-input" id="art-desc-sw" placeholder="Sentensi moja au mbili kuhusu makala hii…"/>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Article Body (English)</label>
+                <div class="editor-toolbar">
+                  <button class="tb-btn" onclick="insertTag('art-body-en','**','**')"><b>B</b></button>
+                  <button class="tb-btn" onclick="insertTag('art-body-en','*','*')"><i>I</i></button>
+                  <button class="tb-btn" onclick="insertVerseBlock('art-body-en')">📖 Verse</button>
+                  <button class="tb-btn" onclick="insertHeading('art-body-en')">H3</button>
+                </div>
+                <textarea class="editor-area" id="art-body-en" placeholder="Write your article here in English...
+
+To add a scripture verse, click 📖 Verse above.
+To add a heading, click H3.
+
+Write from the heart, Mchungaji."></textarea>
+                <div class="form-hint">
+                  <strong>Formatting tips:</strong> **bold text** | *italic text* | [VERSE]Text here|Reference[/VERSE] | [H3]Your Heading[/H3]
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Mwili wa Makala (Kiswahili)</label>
+                <div class="editor-toolbar">
+                  <button class="tb-btn" onclick="insertTag('art-body-sw','**','**')"><b>B</b></button>
+                  <button class="tb-btn" onclick="insertTag('art-body-sw','*','*')"><i>I</i></button>
+                  <button class="tb-btn" onclick="insertVerseBlock('art-body-sw')">📖 Mstari</button>
+                  <button class="tb-btn" onclick="insertHeading('art-body-sw')">H3</button>
+                </div>
+                <textarea class="editor-area" id="art-body-sw" placeholder="Andika makala hii kwa Kiswahili..."></textarea>
+              </div>
+
+              <input type="hidden" id="art-edit-id" value=""/>
+
+              <div class="form-actions">
+                <button class="btn-save" onclick="saveArticle()">💾 Save & Publish</button>
+                <button class="btn-draft" onclick="saveArticleDraft()">Save as Draft</button>
+                <button class="btn-danger" onclick="showArticleList()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── AUDIO ── -->
+        <div class="panel" id="panel-audio">
+          <div id="audio-list-view">
+            <div class="list-header">
+              <div class="list-title">Audio Messages</div>
+              <button class="btn-new" onclick="showAudioForm()">+ New Audio</button>
+            </div>
+            <div id="audio-table-wrap">
+              <div class="empty-state">
+                <div class="empty-icon">🎵</div>
+                <div class="empty-text">No audio messages yet.</div>
+                <button class="btn-new" onclick="showAudioForm()">Add First Audio</button>
+              </div>
+            </div>
+          </div>
+          <div id="audio-form-view" style="display:none">
+            <div class="form-section">
+              <div class="form-title">New Audio Message</div>
+              <div class="form-group">
+                <label class="form-label">Title (English)</label>
+                <input class="form-input" id="aud-title-en" placeholder="e.g. Faith in the Valley"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kichwa (Kiswahili)</label>
+                <input class="form-input" id="aud-title-sw" placeholder="mfano: Imani Bondeni"/>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Duration</label>
+                  <input class="form-input" id="aud-duration" placeholder="e.g. 35 min"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="aud-status">
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description (English)</label>
+                <textarea class="form-textarea" id="aud-desc-en" placeholder="Brief description of this audio message…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Maelezo (Kiswahili)</label>
+                <textarea class="form-textarea" id="aud-desc-sw" placeholder="Maelezo mafupi ya ujumbe huu wa sauti…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Audio Link (YouTube, SoundCloud, Google Drive, etc.)</label>
+                <input class="form-input" id="aud-link" placeholder="https://…"/>
+                <div class="form-hint">Paste a link to where your audio file is hosted. Listeners will be taken to that link.</div>
+              </div>
+              <input type="hidden" id="aud-edit-id" value=""/>
+              <div class="form-actions">
+                <button class="btn-save" onclick="saveAudio()">💾 Save Audio</button>
+                <button class="btn-danger" onclick="showAudioList()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIDEO ── -->
+        <div class="panel" id="panel-video">
+          <div id="video-list-view">
+            <div class="list-header">
+              <div class="list-title">Video Sermons</div>
+              <button class="btn-new" onclick="showVideoForm()">+ New Video</button>
+            </div>
+            <div id="video-table-wrap">
+              <div class="empty-state">
+                <div class="empty-icon">🎬</div>
+                <div class="empty-text">No video sermons yet.</div>
+                <button class="btn-new" onclick="showVideoForm()">Add First Video</button>
+              </div>
+            </div>
+          </div>
+          <div id="video-form-view" style="display:none">
+            <div class="form-section">
+              <div class="form-title">New Video Sermon</div>
+              <div class="form-group">
+                <label class="form-label">Title (English)</label>
+                <input class="form-input" id="vid-title-en" placeholder="e.g. The Courage to Lead"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Kichwa (Kiswahili)</label>
+                <input class="form-input" id="vid-title-sw" placeholder="mfano: Ujasiri wa Kuongoza"/>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Duration</label>
+                  <input class="form-input" id="vid-duration" placeholder="e.g. 45 min"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="vid-status">
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description (English)</label>
+                <textarea class="form-textarea" id="vid-desc-en" placeholder="Brief description of this sermon…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Maelezo (Kiswahili)</label>
+                <textarea class="form-textarea" id="vid-desc-sw" placeholder="Maelezo mafupi ya mahubiri haya…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">YouTube / Video Link</label>
+                <input class="form-input" id="vid-link" placeholder="https://youtube.com/…"/>
+                <div class="form-hint">Paste your YouTube link or any video hosting link.</div>
+              </div>
+              <input type="hidden" id="vid-edit-id" value=""/>
+              <div class="form-actions">
+                <button class="btn-save" onclick="saveVideo()">💾 Save Video</button>
+                <button class="btn-danger" onclick="showVideoList()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── BOOKS ── -->
+        <div class="panel" id="panel-books">
+          <div id="books-list-view">
+            <div class="list-header">
+              <div class="list-title">Books</div>
+              <button class="btn-new" onclick="showBookForm()">+ New Book</button>
+            </div>
+            <div id="books-table-wrap">
+              <div class="empty-state">
+                <div class="empty-icon">📚</div>
+                <div class="empty-text">No books yet. Add your first book.</div>
+                <button class="btn-new" onclick="showBookForm()">Add First Book</button>
+              </div>
+            </div>
+          </div>
+          <div id="book-form-view" style="display:none">
+            <div class="form-section">
+              <div class="form-title">New Book</div>
+              <div class="form-group">
+                <label class="form-label">Book Title (English)</label>
+                <input class="form-input" id="bk-title-en" placeholder="e.g. The Shepherd's Voice"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Jina la Kitabu (Kiswahili)</label>
+                <input class="form-input" id="bk-title-sw" placeholder="mfano: Sauti ya Mchungaji"/>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Price (TZS)</label>
+                  <input class="form-input" id="bk-price-tzs" placeholder="e.g. 15000"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Price (USD)</label>
+                  <input class="form-input" id="bk-price-usd" placeholder="e.g. 6"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cover Emoji / Icon</label>
+                <input class="form-input" id="bk-icon" placeholder="e.g. 📖 or ✝️ or 🌿"/>
+                <div class="form-hint">Choose an emoji that represents your book cover.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Description (English)</label>
+                <textarea class="form-textarea" id="bk-desc-en" placeholder="What is this book about? Who is it for?"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Maelezo (Kiswahili)</label>
+                <textarea class="form-textarea" id="bk-desc-sw" placeholder="Kitabu hiki kinahusu nini? Ni kwa ajili ya nani?"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <select class="form-select" id="bk-status">
+                  <option value="available">Available</option>
+                  <option value="coming-soon">Coming Soon</option>
+                  <option value="sold-out">Sold Out</option>
+                </select>
+              </div>
+              <input type="hidden" id="bk-edit-id" value=""/>
+              <div class="form-actions">
+                <button class="btn-save" onclick="saveBook()">💾 Save Book</button>
+                <button class="btn-danger" onclick="showBookList()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PREVIEW ── -->
+        <div class="panel" id="panel-preview">
+          <div class="list-header">
+            <div class="list-title">Preview Your Content</div>
+          </div>
+          <div class="info-box">
+            Hii inaonyesha maudhui yako yote yaliyohifadhiwa. Kabla ya kupeleka kwenye tovuti, hakikisha kila kitu kiko sawa.
+          </div>
+          <div id="preview-content"></div>
+        </div>
+
+        <!-- ── EXPORT ── -->
+        <div class="panel" id="panel-export">
+          <div class="list-header">
+            <div class="list-title">Export to Website</div>
+          </div>
+          <div class="info-box">
+            <strong>Jinsi ya kupeleka maudhui yako kwenye tovuti:</strong><br>
+            1. Bonyeza <strong>"Generate & Download index.html"</strong> hapa chini<br>
+            2. Faili itapakuwa kwenye simu/kompyuta yako<br>
+            3. Nenda GitHub → repo yako → bonyeza index.html → Edit → Futa yote → Paste → Commit changes<br>
+            4. Baada ya dakika 2 — tovuti yako itakuwa na maudhui yako mapya!
+          </div>
+          <div style="text-align:center;padding:3rem 2rem;border:1px solid var(--border);background:var(--charcoal)">
+            <div style="font-size:2.5rem;margin-bottom:1rem">📦</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--ivory);margin-bottom:0.5rem">Ready to Export</div>
+            <div style="font-size:0.82rem;color:var(--muted);margin-bottom:2rem" id="export-summary">Loading content summary…</div>
+            <button class="btn-save" style="font-size:0.9rem;padding:1rem 3rem" onclick="exportWebsite()">
+              ↓ Generate & Download index.html
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </main>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+const PASS = '20je04sca';
+
+function doLogin(){
+  const val = document.getElementById('loginPass').value;
+  if(val === PASS){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    init();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginPass').value = '';
+  }
+}
+document.getElementById('loginPass').addEventListener('keydown', e => {
+  if(e.key === 'Enter') doLogin();
+});
+
+function doLogout(){
+  if(confirm('Log out of Admin Panel?')){
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminScreen').style.display = 'none';
+    document.getElementById('loginPass').value = '';
+  }
+}
+
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+function getStore(key){ try{ return JSON.parse(localStorage.getItem('nurai_'+key)||'[]'); }catch{ return []; } }
+function setStore(key, val){ localStorage.setItem('nurai_'+key, JSON.stringify(val)); }
+function genId(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init(){
+  document.getElementById('topbarDate').textContent =
+    new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+  updateDashboard();
+}
+
+function updateDashboard(){
+  const arts = getStore('articles');
+  const auds = getStore('audio');
+  const vids = getStore('video');
+  const bks  = getStore('books');
+  document.getElementById('stat-articles').textContent = arts.length;
+  document.getElementById('stat-audio').textContent    = auds.length;
+  document.getElementById('stat-video').textContent    = vids.length;
+  document.getElementById('stat-books').textContent    = bks.length;
+
+  // Recent list
+  const all = [
+    ...arts.map(a=>({...a, type:'Article'})),
+    ...auds.map(a=>({...a, type:'Audio'})),
+    ...vids.map(a=>({...a, type:'Video'})),
+    ...bks.map(a=>({...a, type:'Book'})),
+  ].sort((a,b)=>b.createdAt - a.createdAt).slice(0,8);
+
+  const wrap = document.getElementById('dash-recent-list');
+  if(all.length === 0){
+    wrap.innerHTML = '<div class="dash-item" style="color:var(--muted);font-size:0.78rem">No content yet. Start by writing your first article.</div>';
+    return;
+  }
+  wrap.innerHTML = all.map(item => `
+    <div class="dash-item">
+      <span class="dash-item-title">${item['titleEn']||item['title']||'Untitled'}</span>
+      <span class="dash-item-meta">${item.type} · ${item.status||'published'}</span>
+    </div>`).join('');
+
+  // Export summary
+  document.getElementById('export-summary').textContent =
+    `${arts.length} article${arts.length!==1?'s':''}, ${auds.length} audio message${auds.length!==1?'s':''}, ${vids.length} video sermon${vids.length!==1?'s':''}, ${bks.length} book${bks.length!==1?'s':''}`;
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+const TITLES = {
+  dashboard:'Dashboard', articles:'Articles', audio:'Audio Messages',
+  video:'Video Sermons', books:'Books', preview:'Preview Content', export:'Export to Website'
+};
+function showPanel(id, btn){
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  document.getElementById('pageTitle').textContent = TITLES[id]||id;
+  if(id === 'preview') buildPreview();
+  if(id === 'export') updateDashboard();
+  updateDashboard();
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function toast(msg, type='success'){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type==='error'?' error':'');
+  setTimeout(()=>t.className='toast', 3000);
+}
+
+// ── ARTICLE CRUD ──────────────────────────────────────────────────────────────
+function showArticleForm(id){
+  document.getElementById('articles-list-view').style.display = 'none';
+  document.getElementById('article-form-view').style.display = 'block';
+  if(id){
+    const art = getStore('articles').find(a=>a.id===id);
+    if(art){
+      document.getElementById('art-title-en').value = art.titleEn||'';
+      document.getElementById('art-title-sw').value = art.titleSw||'';
+      document.getElementById('art-category').value = art.category||'faith';
+      document.getElementById('art-status').value   = art.status||'published';
+      document.getElementById('art-desc-en').value  = art.descEn||'';
+      document.getElementById('art-desc-sw').value  = art.descSw||'';
+      document.getElementById('art-body-en').value  = art.bodyEn||'';
+      document.getElementById('art-body-sw').value  = art.bodySw||'';
+      document.getElementById('art-edit-id').value  = id;
+      document.getElementById('article-form-title').textContent = 'Edit Article';
+    }
+  } else {
+    clearArticleForm();
+    document.getElementById('article-form-title').textContent = 'New Article';
+  }
+}
+
+function clearArticleForm(){
+  ['art-title-en','art-title-sw','art-desc-en','art-desc-sw','art-body-en','art-body-sw','art-edit-id']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('art-status').value = 'published';
+  document.getElementById('art-category').value = 'faith';
+}
+
+function showArticleList(){
+  document.getElementById('articles-list-view').style.display = 'block';
+  document.getElementById('article-form-view').style.display = 'none';
+  renderArticlesTable();
+}
+
+function saveArticle(asDraft){
+  const titleEn = document.getElementById('art-title-en').value.trim();
+  if(!titleEn){ toast('Please enter an English title.','error'); return; }
+  const arts = getStore('articles');
+  const editId = document.getElementById('art-edit-id').value;
+  const obj = {
+    id: editId || genId(),
+    titleEn, titleSw: document.getElementById('art-title-sw').value.trim(),
+    category: document.getElementById('art-category').value,
+    status: asDraft ? 'draft' : document.getElementById('art-status').value,
+    descEn: document.getElementById('art-desc-en').value.trim(),
+    descSw: document.getElementById('art-desc-sw').value.trim(),
+    bodyEn: document.getElementById('art-body-en').value.trim(),
+    bodySw: document.getElementById('art-body-sw').value.trim(),
+    createdAt: editId ? (arts.find(a=>a.id===editId)||{}).createdAt || Date.now() : Date.now(),
+    date: new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'})
+  };
+  if(editId){
+    const idx = arts.findIndex(a=>a.id===editId);
+    if(idx>=0) arts[idx] = obj; else arts.unshift(obj);
+  } else { arts.unshift(obj); }
+  setStore('articles', arts);
+  toast(`Article "${titleEn}" saved successfully! ✅`);
+  showArticleList();
+  updateDashboard();
+}
+
+function saveArticleDraft(){ saveArticle(true); }
+
+function deleteArticle(id){
+  if(!confirm('Delete this article? This cannot be undone.')) return;
+  setStore('articles', getStore('articles').filter(a=>a.id!==id));
+  renderArticlesTable();
+  updateDashboard();
+  toast('Article deleted.');
+}
+
+function renderArticlesTable(){
+  const arts = getStore('articles');
+  const wrap = document.getElementById('articles-table-wrap');
+  if(arts.length===0){
+    wrap.innerHTML = `<div class="empty-state"><div class="empty-icon">📝</div><div class="empty-text">No articles yet.</div><button class="btn-new" onclick="showArticleForm()">Write First Article</button></div>`;
+    return;
+  }
+  wrap.innerHTML = `<table class="content-table">
+    <thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>${arts.map(a=>`
+      <tr>
+        <td>${a.titleEn||'Untitled'}</td>
+        <td style="color:var(--muted)">${a.category||'—'}</td>
+        <td style="color:var(--muted)">${a.date||'—'}</td>
+        <td><span class="status-badge status-${a.status||'published'}">${a.status||'published'}</span></td>
+        <td>
+          <button class="action-link" onclick="showArticleForm('${a.id}')">Edit</button>
+          <button class="action-link del" onclick="deleteArticle('${a.id}')">Delete</button>
+        </td>
+      </tr>`).join('')}
+    </tbody></table>`;
+}
+
+// ── AUDIO CRUD ────────────────────────────────────────────────────────────────
+function showAudioForm(id){
+  document.getElementById('audio-list-view').style.display = 'none';
+  document.getElementById('audio-form-view').style.display = 'block';
+  if(id){
+    const a = getStore('audio').find(x=>x.id===id);
+    if(a){
+      document.getElementById('aud-title-en').value  = a.titleEn||'';
+      document.getElementById('aud-title-sw').value  = a.titleSw||'';
+      document.getElementById('aud-duration').value  = a.duration||'';
+      document.getElementById('aud-status').value    = a.status||'published';
+      document.getElementById('aud-desc-en').value   = a.descEn||'';
+      document.getElementById('aud-desc-sw').value   = a.descSw||'';
+      document.getElementById('aud-link').value      = a.link||'';
+      document.getElementById('aud-edit-id').value   = id;
+    }
+  } else {
+    ['aud-title-en','aud-title-sw','aud-duration','aud-desc-en','aud-desc-sw','aud-link','aud-edit-id']
+      .forEach(i=>document.getElementById(i).value='');
+  }
+}
+function showAudioList(){
+  document.getElementById('audio-list-view').style.display='block';
+  document.getElementById('audio-form-view').style.display='none';
+  renderAudioTable();
+}
+function saveAudio(){
+  const titleEn = document.getElementById('aud-title-en').value.trim();
+  if(!titleEn){toast('Please enter a title.','error');return;}
+  const list = getStore('audio');
+  const editId = document.getElementById('aud-edit-id').value;
+  const obj = {
+    id:editId||genId(), titleEn, titleSw:document.getElementById('aud-title-sw').value.trim(),
+    duration:document.getElementById('aud-duration').value.trim(),
+    status:document.getElementById('aud-status').value,
+    descEn:document.getElementById('aud-desc-en').value.trim(),
+    descSw:document.getElementById('aud-desc-sw').value.trim(),
+    link:document.getElementById('aud-link').value.trim(),
+    createdAt: editId?(list.find(a=>a.id===editId)||{}).createdAt||Date.now():Date.now(),
+    date:new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'})
+  };
+  if(editId){const i=list.findIndex(a=>a.id===editId);if(i>=0)list[i]=obj;else list.unshift(obj);}
+  else list.unshift(obj);
+  setStore('audio',list);
+  toast(`Audio "${titleEn}" saved! ✅`);
+  showAudioList(); updateDashboard();
+}
+function deleteAudio(id){
+  if(!confirm('Delete this audio?'))return;
+  setStore('audio',getStore('audio').filter(a=>a.id!==id));
+  renderAudioTable(); updateDashboard(); toast('Audio deleted.');
+}
+function renderAudioTable(){
+  const list=getStore('audio');
+  const wrap=document.getElementById('audio-table-wrap');
+  if(list.length===0){wrap.innerHTML=`<div class="empty-state"><div class="empty-icon">🎵</div><div class="empty-text">No audio messages yet.</div><button class="btn-new" onclick="showAudioForm()">Add First Audio</button></div>`;return;}
+  wrap.innerHTML=`<table class="content-table"><thead><tr><th>Title</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody>${list.map(a=>`<tr><td>${a.titleEn||'Untitled'}</td><td style="color:var(--muted)">${a.duration||'—'}</td><td><span class="status-badge status-${a.status||'published'}">${a.status||'published'}</span></td><td><button class="action-link" onclick="showAudioForm('${a.id}')">Edit</button><button class="action-link del" onclick="deleteAudio('${a.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`;
+}
+
+// ── VIDEO CRUD ────────────────────────────────────────────────────────────────
+function showVideoForm(id){
+  document.getElementById('video-list-view').style.display='none';
+  document.getElementById('video-form-view').style.display='block';
+  if(id){const v=getStore('video').find(x=>x.id===id);if(v){['vid-title-en','vid-title-sw','vid-duration','vid-desc-en','vid-desc-sw','vid-link'].forEach(f=>{document.getElementById(f).value=v[f.replace('vid-','').replace('-','').replace('En','En').replace('Sw','Sw')]||v[{titleEn:'titleEn',titleSw:'titleSw',duration:'duration',descEn:'descEn',descSw:'descSw',link:'link'}[f.slice(4)]]||'';});document.getElementById('vid-status').value=v.status||'published';document.getElementById('vid-edit-id').value=id;}}
+  else{['vid-title-en','vid-title-sw','vid-duration','vid-desc-en','vid-desc-sw','vid-link','vid-edit-id'].forEach(i=>document.getElementById(i).value='');}
+}
+function showVideoList(){
+  document.getElementById('video-list-view').style.display='block';
+  document.getElementById('video-form-view').style.display='none';
+  renderVideoTable();
+}
+function saveVideo(){
+  const titleEn=document.getElementById('vid-title-en').value.trim();
+  if(!titleEn){toast('Please enter a title.','error');return;}
+  const list=getStore('video');
+  const editId=document.getElementById('vid-edit-id').value;
+  const obj={
+    id:editId||genId(),titleEn,titleSw:document.getElementById('vid-title-sw').value.trim(),
+    duration:document.getElementById('vid-duration').value.trim(),
+    status:document.getElementById('vid-status').value,
+    descEn:document.getElementById('vid-desc-en').value.trim(),
+    descSw:document.getElementById('vid-desc-sw').value.trim(),
+    link:document.getElementById('vid-link').value.trim(),
+    createdAt:editId?(list.find(a=>a.id===editId)||{}).createdAt||Date.now():Date.now(),
+    date:new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'})
+  };
+  if(editId){const i=list.findIndex(a=>a.id===editId);if(i>=0)list[i]=obj;else list.unshift(obj);}
+  else list.unshift(obj);
+  setStore('video',list);
+  toast(`Video "${titleEn}" saved! ✅`);
+  showVideoList(); updateDashboard();
+}
+function deleteVideo(id){
+  if(!confirm('Delete this video?'))return;
+  setStore('video',getStore('video').filter(a=>a.id!==id));
+  renderVideoTable(); updateDashboard(); toast('Video deleted.');
+}
+function renderVideoTable(){
+  const list=getStore('video');
+  const wrap=document.getElementById('video-table-wrap');
+  if(list.length===0){wrap.innerHTML=`<div class="empty-state"><div class="empty-icon">🎬</div><div class="empty-text">No video sermons yet.</div><button class="btn-new" onclick="showVideoForm()">Add First Video</button></div>`;return;}
+  wrap.innerHTML=`<table class="content-table"><thead><tr><th>Title</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead><tbody>${list.map(a=>`<tr><td>${a.titleEn||'Untitled'}</td><td style="color:var(--muted)">${a.duration||'—'}</td><td><span class="status-badge status-${a.status||'published'}">${a.status||'published'}</span></td><td><button class="action-link" onclick="showVideoForm('${a.id}')">Edit</button><button class="action-link del" onclick="deleteVideo('${a.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`;
+}
+
+// ── BOOK CRUD ─────────────────────────────────────────────────────────────────
+function showBookForm(id){
+  document.getElementById('books-list-view').style.display='none';
+  document.getElementById('book-form-view').style.display='block';
+  if(id){
+    const b=getStore('books').find(x=>x.id===id);
+    if(b){
+      document.getElementById('bk-title-en').value=b.titleEn||'';
+      document.getElementById('bk-title-sw').value=b.titleSw||'';
+      document.getElementById('bk-price-tzs').value=b.priceTzs||'';
+      document.getElementById('bk-price-usd').value=b.priceUsd||'';
+      document.getElementById('bk-icon').value=b.icon||'📖';
+      document.getElementById('bk-desc-en').value=b.descEn||'';
+      document.getElementById('bk-desc-sw').value=b.descSw||'';
+      document.getElementById('bk-status').value=b.status||'available';
+      document.getElementById('bk-edit-id').value=id;
+    }
+  } else {
+    ['bk-title-en','bk-title-sw','bk-price-tzs','bk-price-usd','bk-desc-en','bk-desc-sw','bk-edit-id'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('bk-icon').value='📖';
+    document.getElementById('bk-status').value='available';
+  }
+}
+function showBookList(){
+  document.getElementById('books-list-view').style.display='block';
+  document.getElementById('book-form-view').style.display='none';
+  renderBooksTable();
+}
+function saveBook(){
+  const titleEn=document.getElementById('bk-title-en').value.trim();
+  if(!titleEn){toast('Please enter a book title.','error');return;}
+  const list=getStore('books');
+  const editId=document.getElementById('bk-edit-id').value;
+  const obj={
+    id:editId||genId(),titleEn,titleSw:document.getElementById('bk-title-sw').value.trim(),
+    priceTzs:document.getElementById('bk-price-tzs').value.trim(),
+    priceUsd:document.getElementById('bk-price-usd').value.trim(),
+    icon:document.getElementById('bk-icon').value.trim()||'📖',
+    descEn:document.getElementById('bk-desc-en').value.trim(),
+    descSw:document.getElementById('bk-desc-sw').value.trim(),
+    status:document.getElementById('bk-status').value,
+    createdAt:editId?(list.find(a=>a.id===editId)||{}).createdAt||Date.now():Date.now(),
+  };
+  if(editId){const i=list.findIndex(a=>a.id===editId);if(i>=0)list[i]=obj;else list.unshift(obj);}
+  else list.unshift(obj);
+  setStore('books',list);
+  toast(`Book "${titleEn}" saved! ✅`);
+  showBookList(); updateDashboard();
+}
+function deleteBook(id){
+  if(!confirm('Delete this book?'))return;
+  setStore('books',getStore('books').filter(a=>a.id!==id));
+  renderBooksTable(); updateDashboard(); toast('Book deleted.');
+}
+function renderBooksTable(){
+  const list=getStore('books');
+  const wrap=document.getElementById('books-table-wrap');
+  if(list.length===0){wrap.innerHTML=`<div class="empty-state"><div class="empty-icon">📚</div><div class="empty-text">No books yet.</div><button class="btn-new" onclick="showBookForm()">Add First Book</button></div>`;return;}
+  wrap.innerHTML=`<table class="content-table"><thead><tr><th>Title</th><th>Price (TZS)</th><th>Status</th><th>Actions</th></tr></thead><tbody>${list.map(b=>`<tr><td>${b.icon||'📖'} ${b.titleEn||'Untitled'}</td><td style="color:var(--muted)">${b.priceTzs?'TZS '+b.priceTzs:'—'}</td><td><span class="status-badge status-${b.status==='available'?'published':'draft'}">${b.status||'available'}</span></td><td><button class="action-link" onclick="showBookForm('${b.id}')">Edit</button><button class="action-link del" onclick="deleteBook('${b.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`;
+}
+
+// ── EDITOR HELPERS ────────────────────────────────────────────────────────────
+function insertTag(id, before, after){
+  const el=document.getElementById(id);
+  const s=el.selectionStart, e=el.selectionEnd;
+  const sel=el.value.substring(s,e)||'text';
+  el.value=el.value.substring(0,s)+before+sel+after+el.value.substring(e);
+  el.focus();
+}
+function insertVerseBlock(id){
+  const el=document.getElementById(id);
+  const s=el.selectionStart;
+  const block='\n[VERSE]"Scripture text here."|Book Chapter:Verse[/VERSE]\n';
+  el.value=el.value.substring(0,s)+block+el.value.substring(s);
+  el.focus();
+}
+function insertHeading(id){
+  const el=document.getElementById(id);
+  const s=el.selectionStart;
+  const block='\n[H3]Your Heading Here[/H3]\n';
+  el.value=el.value.substring(0,s)+block+el.value.substring(s);
+  el.focus();
+}
+
+// ── PREVIEW ───────────────────────────────────────────────────────────────────
+function buildPreview(){
+  const arts=getStore('articles');
+  const auds=getStore('audio');
+  const vids=getStore('video');
+  const bks=getStore('books');
+  let html='';
+
+  if(arts.length){
+    html+=`<h3 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-weight:300;margin-bottom:1rem;font-size:1.2rem">📝 Articles (${arts.length})</h3>`;
+    html+=arts.map(a=>`<div style="border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem;background:var(--charcoal)"><div style="color:var(--ivory);font-weight:400;margin-bottom:0.3rem">${a.titleEn}</div><div style="color:var(--muted);font-size:0.75rem">${a.titleSw||'—'} · ${a.category} · <span class="status-badge status-${a.status}">${a.status}</span></div></div>`).join('');
+  }
+  if(auds.length){
+    html+=`<h3 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-weight:300;margin:1.5rem 0 1rem;font-size:1.2rem">🎵 Audio (${auds.length})</h3>`;
+    html+=auds.map(a=>`<div style="border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem;background:var(--charcoal)"><div style="color:var(--ivory)">${a.titleEn}</div><div style="color:var(--muted);font-size:0.75rem">${a.duration||'—'} · ${a.status}</div></div>`).join('');
+  }
+  if(vids.length){
+    html+=`<h3 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-weight:300;margin:1.5rem 0 1rem;font-size:1.2rem">🎬 Video (${vids.length})</h3>`;
+    html+=vids.map(a=>`<div style="border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem;background:var(--charcoal)"><div style="color:var(--ivory)">${a.titleEn}</div><div style="color:var(--muted);font-size:0.75rem">${a.duration||'—'} · ${a.status}</div></div>`).join('');
+  }
+  if(bks.length){
+    html+=`<h3 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-weight:300;margin:1.5rem 0 1rem;font-size:1.2rem">📚 Books (${bks.length})</h3>`;
+    html+=bks.map(b=>`<div style="border:1px solid var(--border);padding:1.2rem;margin-bottom:0.8rem;background:var(--charcoal)"><div style="color:var(--ivory)">${b.icon} ${b.titleEn}</div><div style="color:var(--muted);font-size:0.75rem">TZS ${b.priceTzs||'—'} · USD ${b.priceUsd||'—'} · ${b.status}</div></div>`).join('');
+  }
+  if(!html) html='<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No content yet. Add articles, audio, video, or books to see them here.</div></div>';
+  document.getElementById('preview-content').innerHTML=html;
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────────────
+function parseBody(text){
+  if(!text) return '<p></p>';
+  return text
+    .split('\n\n')
+    .map(p => p.trim())
+    .filter(p => p)
+    .map(p => {
+      if(p.startsWith('[H3]')) return `<h3>${p.replace('[H3]','').replace('[/H3]','')}</h3>`;
+      if(p.startsWith('[VERSE]')){
+        const inner=p.replace('[VERSE]','').replace('[/VERSE]','');
+        const [verseText,ref]=inner.split('|');
+        return `<div class="article-verse"><div class="article-verse-text">${verseText||''}</div>${ref?`<div class="article-verse-ref">${ref}</div>`:''}</div>`;
+      }
+      return `<p>${p.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')}</p>`;
+    }).join('');
+}
+
+function exportWebsite(){
+  const arts = getStore('articles').filter(a=>a.status==='published');
+  const auds = getStore('audio').filter(a=>a.status==='published');
+  const vids = getStore('video').filter(a=>a.status==='published');
+  const bks  = getStore('books');
+
+  // Build articles JSON for injection
+  const artsJSON = JSON.stringify(arts);
+  const audsJSON = JSON.stringify(auds);
+  const vidsJSON = JSON.stringify(vids);
+  const bksJSON  = JSON.stringify(bks);
+
+  // Read base index from localStorage if exists, or use embedded template
+  const baseHtml = localStorage.getItem('nurai_base_html') || getBaseTemplate();
+
+  // Inject content data into the HTML
+  const output = baseHtml
+    .replace('/*ARTICLES_DATA*/', `const ARTICLES_DATA=${artsJSON};`)
+    .replace('/*AUDIO_DATA*/', `const AUDIO_DATA=${audsJSON};`)
+    .replace('/*VIDEO_DATA*/', `const VIDEO_DATA=${vidsJSON};`)
+    .replace('/*BOOKS_DATA*/', `const BOOKS_DATA=${bksJSON};`);
+
+  const blob = new Blob([output], {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('✅ index.html downloaded! Now upload it to GitHub.');
+}
+
+function getBaseTemplate(){
+  return `<!-- NURU AI BASE TEMPLATE - Content will be injected here -->
+  <!-- This is a fallback. The real template should be stored in localStorage as nurai_base_html -->
+  <script>/*ARTICLES_DATA*/<\/script>
+  <script>/*AUDIO_DATA*/<\/script>
+  <script>/*VIDEO_DATA*/<\/script>
+  <script>/*BOOKS_DATA*/<\/script>`;
+}
+</script>
+</body>
+</html>
